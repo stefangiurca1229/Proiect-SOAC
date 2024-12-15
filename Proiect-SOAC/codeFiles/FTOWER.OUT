@@ -1,0 +1,458 @@
+
+                                      BSR   RA,~main1 (4) 
+                                      MOV   GP,#4096 
+                                      MOV   SP,#4096 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      TRAP  0 
+
+  _Error                              SUB   SP,SP,#128 
+                                      MOV   R13,R5 
+                                      MOV   R5,#Lc0 
+                                      ST    0(SP),RA 
+                                      MOV   R6,R13 
+  ~Error1                             BSR   RA,_printf (0) 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+
+  _Getelement                         SUB   SP,SP,#128 
+                                      MOV!  R5,#Lc1 
+                                      MOV!  R12,#_cellspace+4 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      LD    R13,_freelist 
+                                      LD!   RA,0(SP) 
+                                      LES   B1,R13,#0 
+                                      ASL!  R11,R13,#3 
+                                      MOV!  R17,R13 
+  ~Getelement1                         BT    B1,L4(10) 
+              TB1                     BRA   ~Error1(9) 
+              TB1                     MOV   RA,#return1 
+              TB1                     SUB   SP,SP,#128 
+              TB1                     MOV   R13,R5 
+              TB1                     MOV   R5,#Lc0 
+              FB1                     MOV!  R5,R17 
+              FB1                     ADD   R13,R11,R12 
+              TB1                     ST    0(SP),RA 
+              TB1                     MOV   R6,R13 
+              FB1                     LD    R13,(R0,R13) 
+                                      ST    _freelist,R13 
+                                      LD    R17,8(SP) 
+                                      ADD   SP,SP,#128 
+  
+                                      MOV   PC,RA(0) 
+  L4          
+        return1                             LD    RA,0(SP) 
+                                      MOV   R5,R17 
+                                      LD    R17,8(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+
+  _Push                               SUB   SP,SP,#128 
+                                      ASL   R13,R6,#2 
+                                      MOV   R8,#_stack 
+                                      MOV!  R12,#_cellspace 
+                                      MOV!  R14,#Lc2 
+  ~Push1                              ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      MOV   R19,R5 
+                                      MOV   R18,R6 
+                                      CLR   R17 
+                                      ADD   R13,R13,R8 
+                                      LD!   RA,0(SP) 
+  ~Push2                              NE!   B2,R17,#0 
+                                      LD    R13,(R0,R13) 
+                                      MOV!  R17,#1 
+                                      LES   B1,R13,#0 
+                                      ASL!  R13,R13,#3 
+                                      BT    B1,L7(3) 
+              FB1                     ADD   R13,R13,R12 
+              FB1                     MOV!  R8,R12 
+              FB1                     LD    R13,(R0,R13) 
+                                      GTS   B1,R13,R19 
+                                      BT    B1,L7(7) 
+              FB1                     BSR   RA,~Error1 (6) 
+              FB1                     MOV!  R5,R14 
+              FB1                     SUB   SP,SP,#128 
+              FB1                     MOV   R13,R5 
+              FB1                     MOV   R5,#Lc0 
+              FB1                     ST    0(SP),RA 
+              FB1                     MOV   R6,R13 
+                                      LD!   RA,0(SP) 
+                                      NE    B2,R17,#0 
+  L7                                  BT    B2,Sx2(15) 
+              TB2                     LD    R17,8(SP) 
+              TB2                     LD    R18,12(SP) 
+              TB2                     LD    R19,16(SP) 
+              TB2                     ADD   SP,SP,#128 
+              FB2                     BSR   RA,~Getelement1 (10) 
+              FB2                     SUB   SP,SP,#128 
+              FB2                     MOV!  R5,#Lc1 
+              FB2                     MOV!  R12,#_cellspace+4 
+              FB2                     ST    0(SP),RA 
+              FB2                     ST    8(SP),R17 
+              FB2                     LD    R13,_freelist 
+              FB2                     LD!   RA,0(SP) 
+              FB2                     LES   B1,R13,#0 
+              FB2                     ASL!  R11,R13,#3 
+              FB2                     MOV!  R17,R13 
+                                      LD    RA,0(SP) 
+                                      ASL   R13,R5,#3 
+                                      MOV   R7,R5 
+                                      MOV   R8,#_cellspace 
+                                      ASL   R11,R18,#2 
+                                      MOV   R15,#_stack 
+                                      ADD   R6,R13,R8 
+                                      ADD   R13,R11,R15 
+                                      MOV   PC,RA(9) 
+                                      ADD   R5,R6,#4 
+                                      LD    R8,(R0,R13) 
+                                      ST    (R0,R5),R8 
+                                      ST    (R0,R13),R7 
+                                      ST    (R0,R6),R19 
+                                      LD    R19,16(SP) 
+                                      LD    R18,12(SP) 
+                                      LD    R17,8(SP) 
+                                      ADD   SP,SP,#128 
+  Sx2                                 MOV   PC,RA(0) 
+
+  _Init                               SUB   SP,SP,#144 
+                                      ASL   R13,R5,#2 
+                                      LES   B1,R6,#0 
+                                      ST    140(SP),R22 
+                                      ST    136(SP),R21 
+                                      ST    132(SP),R20 
+                                      ST    128(SP),R19 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      MOV   R18,R5 
+                                      MOV   R17,R6 
+                                      MOV   R6,#_stack 
+                                      LD!   RA,0(SP) 
+                                      ADD   R13,R13,R6 
+                                      MOV!  R6,R18 
+                                      ADD!  R22,R17,#-1 
+  ~Init1                              ST    (R0,R13),R0 
+                                      ADD!  R19,R22,#-1 
+                                      BT    B1,Sx5(16) 
+              TB1                     LD    R17,8(SP) 
+              TB1                     LD    R18,12(SP) 
+              TB1                     LD    R19,128(SP) 
+              TB1                     LD    R20,132(SP) 
+              TB1                     LD    R21,136(SP) 
+              TB1                     LD    R22,140(SP) 
+              TB1                     ADD   SP,SP,#144 
+              FB1                     BSR   RA,~Push1 (8) 
+              FB1                     MOV   R5,R17 
+              FB1                     ADD!  R20,R19,#-1 
+              FB1                     ADD!  R21,R20,#-1 
+              FB1                     SUB   SP,SP,#128 
+              FB1                     ASL   R13,R6,#2 
+              FB1                     MOV   R8,#_stack 
+              FB1                     MOV!  R12,#_cellspace 
+              FB1                     MOV!  R14,#Lc2 
+  Sx4         
+        Sx3         
+        return2                             GTS   B1,R22,#0 
+                                      LD!   RA,0(SP) 
+                                      MOV!  R6,R18 
+                                      BT    B1,Sx4(15) 
+              TB1                     BRA   _Push(14) 
+              TB1                     MOV   RA,#return2 
+              TB1                     MOV   R5,R22 
+              TB1                     MOV!  R22,R19 
+              TB1                     MOV!  R19,R20 
+              TB1                     MOV!  R20,R21 
+              FB1                     LD    R22,140(SP) 
+              FB1                     LD    R21,136(SP) 
+              FB1                     LD    R20,132(SP) 
+              FB1                     LD    R19,128(SP) 
+              FB1                     LD    R18,12(SP) 
+              FB1                     LD    R17,8(SP) 
+              FB1                     ADD   SP,SP,#144 
+              TB1                     ADD!  R21,R20,#-1 
+              FB1                     MOV   PC,RA(0) 
+  Sx5                                 MOV   PC,RA(0) 
+
+  _Pop                                SUB   SP,SP,#128 
+                                      ASL   R13,R5,#2 
+                                      MOV   R8,#_stack 
+                                      MOV!  R5,#Lc3 
+                                      LD!   R11,_freelist 
+                                      MOV!  R12,#_cellspace 
+                                      ST    0(SP),RA 
+                                      ADD   R7,R13,R8 
+                                      LD!   RA,0(SP) 
+                                      LD    R13,(R0,R7) 
+  ~Pop1                               LES   B1,R13,#0 
+                                      ASL!  R13,R13,#3 
+                                      BT    B1,L16(14) 
+              TB1                     BRA   ~Error1(10) 
+              TB1                     MOV   RA,#return3 
+              TB1                     SUB   SP,SP,#128 
+              TB1                     MOV   R13,R5 
+              TB1                     MOV   R5,#Lc0 
+              FB1                     ADD!  SP,SP,#128 
+              FB1                     ADD   R13,R13,R12 
+              TB1                     ST    0(SP),RA 
+              TB1                     MOV   R6,R13 
+              FB1                     LD    R6,(R0,R13) 
+              FB1                     ADD   R13,R13,#4 
+              FB1                     LD    R5,(R0,R13) 
+              FB1                     ST    (R0,R13),R11 
+              FB1                     LD    R8,(R0,R7) 
+                                      ST    _freelist,R8 
+                                      ST    (R0,R7),R5 
+                                      MOV   R5,R6 
+  
+                                      MOV   PC,RA(0) 
+  L16         
+        return3                             LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+
+  _Move                               SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      MOV   R17,R6 
+  ~Move1                              BSR   RA,~Pop1 (10) 
+                                      SUB   SP,SP,#128 
+                                      ASL   R13,R5,#2 
+                                      MOV   R8,#_stack 
+                                      MOV!  R5,#Lc3 
+                                      LD!   R11,_freelist 
+                                      MOV!  R12,#_cellspace 
+                                      ST    0(SP),RA 
+                                      ADD   R7,R13,R8 
+                                      LD!   RA,0(SP) 
+                                      LD    R13,(R0,R7) 
+                                      BSR   RA,~Push2 (15) 
+                                      MOV   R6,R17 
+                                      SUB   SP,SP,#128 
+                                      ASL   R13,R6,#2 
+                                      MOV   R8,#_stack 
+                                      MOV!  R12,#_cellspace 
+                                      MOV!  R14,#Lc2 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      MOV   R19,R5 
+                                      MOV   R18,R6 
+                                      CLR   R17 
+                                      ADD   R13,R13,R8 
+                                      LD!   RA,0(SP) 
+                                      LD    R13,_movesdone 
+                                      LD    RA,0(SP) 
+                                      ADD   R13,R13,#1 
+                                      MOV   PC,RA(3) 
+                                      ST    _movesdone,R13 
+                                      LD    R17,8(SP) 
+                                      ADD   SP,SP,#128 
+
+  _tower                              SUB   SP,SP,#128 
+                                      NE    B1,R7,#1 
+                                      MOV!  R13,#6 
+  ~tower1                             MOV   B2,B1 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      MOV   R19,R5 
+                                      SUB!  R13,R13,R6 
+                                      MOV   R20,R6 
+                                      ADD!  R18,R7,#-1 
+  ~tower2                             BT    B2,return4(14) 
+              TB2                     SUB   R17,R13,R19 
+              TB2                     MOV   R5,R19 
+              TB2                     MOV   R7,R18 
+              FB2                     BSR   RA,~Move1 (10) 
+              FB2                     SUB   SP,SP,#128 
+              TB2                     MOV   R6,R17 
+              FB2                     ST    0(SP),RA 
+              FB2                     ST    8(SP),R17 
+              FB2                     MOV   R17,R6 
+              TB2                     BRA   ~tower1(4) 
+              TB2                     MOV   RA,#return4 
+              TB2                     SUB   SP,SP,#128 
+              TB2                     NE    B1,R7,#1 
+              TB2                     MOV!  R13,#6 
+                                      BRA   L21(0) 
+  return4     
+        L20                                 BSR   RA,~Move1 (6) 
+                                      MOV   R5,R19 
+                                      MOV   R6,R20 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      MOV   R17,R6 
+                                      MOV   R5,R17 
+                                      MOV   R6,R20 
+                                      MOV   R7,R18 
+                                      BSR   RA,~tower2 (13) 
+                                      SUB   SP,SP,#128 
+                                      NE    B1,R7,#1 
+                                      MOV!  R13,#6 
+                                      MOV   B2,B1 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      MOV   R19,R5 
+                                      SUB!  R13,R13,R6 
+                                      MOV   R20,R6 
+                                      ADD!  R18,R7,#-1 
+  L21                                 LD    RA,0(SP) 
+                                      LD    R17,8(SP) 
+                                      LD    R18,12(SP) 
+                                      LD    R19,16(SP) 
+                                      LD    R20,20(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+
+  _Towers                             SUB   SP,SP,#128 
+                                      MOV   R6,#1 
+                                      MOV   R5,#4436 
+                                      MOV   R7,#4440 
+                                      MOV!  R10,#18 
+                                      MOV!  R12,#4444 
+                                      MOV!  R14,#1 
+                                      MOV!  R15,#11 
+                                      ST    0(SP),RA 
+                                      ADD   R13,R6,#-1 
+                                      ADD   R6,R6,#1 
+                                      ST    (R0,R5),R13 
+                                      ADD!  R13,R6,#-1 
+                                      LES   B1,R6,#18 
+                                      MOV!  R5,R14 
+  L26         
+        ~Towers1                            MOV   B2,B1 
+                                      BT    B1,L26(33) 
+              TB1                     ST    (R0,R12),R13 
+              TB1                     ADD   R7,R7,#8 
+              TB1                     ADD   R6,R6,#1 
+              FB1                     ST    _freelist,R10 
+              FB1                     MOV!  R6,R15 
+              TB2                     ADD!  R12,R7,#4 
+              TB2                     ADD!  R13,R6,#-1 
+              TB2                     LES   B1,R6,#18 
+              TB2                     LES   B3,R6,#18 
+              FB2                     BSR   RA,~Init1 (23) 
+              FB2                     SUB   SP,SP,#144 
+              FB2                     ASL   R13,R5,#2 
+              FB2                     LES   B1,R6,#0 
+              TB2 TB3                 ST    (R0,R12),R13 
+              TB2 TB3                 ADD   R7,R7,#8 
+              TB2 TB3                 ADD   R6,R6,#1 
+              FB2                     ST    140(SP),R22 
+              FB2                     ST    136(SP),R21 
+              FB2                     ST    132(SP),R20 
+              FB2                     ST    128(SP),R19 
+              FB2                     ST    0(SP),RA 
+              FB2                     ST    8(SP),R17 
+              FB2                     ST    12(SP),R18 
+              FB2                     MOV   R18,R5 
+              FB2                     MOV   R17,R6 
+              FB2                     MOV   R6,#_stack 
+              FB2                     LD!   RA,0(SP) 
+              TB2 TB3                 ADD!  R12,R7,#4 
+              TB2 TB3                 ADD!  R13,R6,#-1 
+              TB2 TB3                 LES   B1,R6,#18 
+              FB2                     ADD   R13,R13,R6 
+              FB2                     MOV!  R6,R18 
+              FB2                     ADD!  R22,R17,#-1 
+                                      MOV   R5,#2 
+                                      MOV   R6,#_stack 
+                                      MOV   R7,#11 
+                                      MOV   R16,#3 
+                                      MOV   R40,#_stack 
+                                      MOV   R41,#1 
+                                      MOV   R42,#2 
+                                      BSR   RA,_tower (9) 
+                                      ASL   R13,R5,#2 
+                                      ASL   R11,R16,#2 
+                                      MOV   R5,R41 
+                                      ADD   R13,R13,R6 
+                                      ADD   R43,R11,R40 
+                                      MOV   R6,R42 
+                                      ST    (R0,R13),R0 
+                                      ST    (R0,R43),R0 
+                                      ST    _movesdone,R0 
+                                      BSR   RA,_printf (2) 
+                                      MOV   R5,#Lc4 
+                                      LD    R6,_movesdone 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc5 
+                                      LD    R6,_cellspace+8 
+                                      LD    R7,_cellspace+16 
+                                      LD    R8,_cellspace+24 
+                                      LD    R9,_cellspace+32 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc6 
+                                      LD    R6,_cellspace+40 
+                                      LD    R7,_cellspace+48 
+                                      LD    R8,_cellspace+56 
+                                      LD    R9,_cellspace+64 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc6 
+                                      LD    R6,_cellspace+72 
+                                      LD    R7,_cellspace+80 
+                                      LD    R8,_cellspace+88 
+                                      LD    R9,_cellspace+96 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc6 
+                                      LD    R6,_cellspace+104 
+                                      LD    R7,_cellspace+112 
+                                      LD    R8,_cellspace+120 
+                                      LD    R9,_cellspace+128 
+                                      BSR   RA,_printf (3) 
+                                      MOV   R5,#Lc7 
+                                      LD    R6,_cellspace+136 
+                                      LD    R7,_cellspace+144 
+                                      BSR   RA,_printf (1) 
+                                      MOV   R5,#Lc8 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+
+  _main                               SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+  ~main1                              BSR   RA,L26 (15) 
+                                      SUB   SP,SP,#128 
+                                      MOV   R6,#1 
+                                      MOV   R5,#4436 
+                                      MOV   R7,#4440 
+                                      MOV!  R10,#18 
+                                      MOV!  R12,#4444 
+                                      MOV!  R14,#1 
+                                      MOV!  R15,#11 
+                                      ST    0(SP),RA 
+                                      ADD   R13,R6,#-1 
+                                      ADD   R6,R6,#1 
+                                      ST    (R0,R5),R13 
+                                      ADD!  R13,R6,#-1 
+                                      LES   B1,R6,#18 
+                                      MOV!  R5,R14 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+ Lc0: 	.ascii "Error in Towers: %s\12\0"
+ Lc1: 	.ascii "out of space \0"
+ Lc2: 	.ascii "disc size error\0"
+ Lc3: 	.ascii "nothing to pop\0"
+ Lc4: 	.ascii "\12\12end of run for tower.c    movesdone = %d  (should be 2047)\0"
+ Lc5: 	.ascii "\12disc values of 18 cellspaces are : %d,%d,%d,%d\0"
+ Lc6: 	.ascii ",%d,%d,%d,%d\0"
+ Lc7: 	.ascii ",%d,%d\0"
+ Lc8: 	.ascii "\12correct values should be         : 0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,10,11      \12\12\0"
+	.comm _stack,16,
+	.comm _cellspace,152,
+	.comm _freelist,4,
+	.comm _movesdone,4,
+

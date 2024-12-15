@@ -1,0 +1,401 @@
+
+                                      BSR   RA,~main1 (4) 
+                                      MOV   GP,#4096 
+                                      MOV   SP,#4096 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      TRAP  0 
+
+  _Try                                SUB   SP,SP,#128 
+                                      ASL   R13,R5,#2 
+                                      GTS!  B2,R5,#7 
+                                      MOV!  R11,#1 
+                                      ADD!  R12,R5,#1 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      ST    24(SP),R21 
+                                      ST    28(SP),R22 
+                                      ST    32(SP),R23 
+                                      ST    36(SP),R24 
+                                      ST    40(SP),R25 
+                                      ST    44(SP),R26 
+                                      ST    48(SP),R27 
+                                      MOV   R20,R5 
+                                      ST    (R0,R6),R0 
+                                      ST    (R0,R6),R0 
+                                      MOV   R19,R6 
+                                      MOV   R24,R7 
+                                      ADD   R18,R8,#4 
+                                      MOV   R26,R8 
+                                      MOV   R23,R9 
+                                      ADD   R27,R10,R13 
+                                      MOV   R25,R10 
+                                      CLR   R17 
+                                      LD!   RA,0(SP) 
+  ~Try2                               ADD   R17,R17,#1 
+                                      MOV!  R7,R24 
+                                      MOV!  R8,R26 
+                                      MOV!  R9,R23 
+                                      MOV!  R10,R25 
+                                      LD    R13,(R0,R18) 
+  ~Try1                               ADD!  R14,R20,R17 
+                                      SUB!  R15,R20,R17 
+                                      ASL!  R22,R14,#2 
+                                      ASL!  R21,R15,#2 
+                                      EQ    B1,R13,#0 
+                                      ADD!  R6,R24,R22 
+                                      ADD!  R16,R21,R23 
+                                      LD!   R13,(R0,R6) 
+                                      ADD!  R40,R16,#28 
+                                      LD!   R41,(R0,R40) 
+  L8                                  NE!   B3,R17,#8 
+                                      EQ!   B4,R13,#0 
+                                      LD!   R13,(R0,R19) 
+                                      EQ!   B5,R41,#0 
+                                      BT    B1,L2(20) 
+              TB1                     ADD!  R18,R18,#4 
+              TB1                     ADD!  R17,R17,#1 
+              TB1                     MOV!  R11,#1 
+              TB1                     ADD!  R12,R20,#1 
+              TB1                     MOV!  R7,R24 
+              TB1                     MOV!  R8,R26 
+              TB1                     MOV!  R9,R23 
+              TB1                     MOV!  R10,R25 
+              FB1 FB4 FB5             ST!   (R0,R27),R17 
+              FB1 FB4 FB5             ST!   (R0,R18),R0 
+              FB1 FB4 FB5             ST!   (R0,R6),R0 
+              FB1 FB4 FB5             ST!   (R0,R40),R0 
+              FB1 TB2 FB4 FB5         ST!   (R0,R19),R11 
+              FB1                     MOV!  R6,R19 
+              FB1                     MOV!  R11,#1 
+              FB1                     LD!   R13,(R0,R19) 
+              TB1                     ADD!  R14,R20,R17 
+              TB1                     SUB!  R15,R20,R17 
+              TB1                     ASL!  R22,R14,#2 
+              TB1                     ASL!  R21,R15,#2 
+                                      BT    B4,L2(12) 
+              TB4                     MOV!  R10,R25 
+              TB4                     MOV!  R9,R23 
+              TB4                     MOV!  R8,R26 
+              TB4                     MOV!  R7,R24 
+              TB4                     ADD!  R12,R20,#1 
+              TB4                     ADD!  R17,R17,#1 
+              TB4                     ADD!  R18,R18,#4 
+              FB4                     MOV!  R5,R40 
+              TB4                     SUB!  R15,R20,R17 
+              TB4                     ADD!  R14,R20,R17 
+              TB4                     ASL!  R21,R15,#2 
+              TB4                     ASL!  R22,R14,#2 
+                                      BT    B5,L2(12) 
+              TB5                     MOV!  R10,R25 
+              TB5                     MOV!  R9,R23 
+              TB5                     MOV!  R8,R26 
+              TB5                     MOV!  R7,R24 
+              TB5                     ADD!  R12,R20,#1 
+              TB5                     ADD!  R17,R17,#1 
+              TB5                     ADD!  R18,R18,#4 
+              TB5                     SUB!  R15,R20,R17 
+              TB5                     ADD!  R14,R20,R17 
+              TB5                     ASL!  R21,R15,#2 
+              TB5                     ASL!  R22,R14,#2 
+              FB5                     MOV   B6,B2 
+                                      BT    B6,L2(42) 
+              TB6                     MOV!  R10,R25 
+              TB6                     MOV!  R9,R23 
+              TB6                     MOV!  R8,R26 
+              TB6                     MOV!  R7,R24 
+              TB6                     ADD!  R12,R20,#1 
+              TB6                     ADD!  R17,R17,#1 
+              TB6                     ADD!  R18,R18,#4 
+              FB6                     MOV!  R5,R12 
+              TB6                     SUB!  R15,R20,R17 
+              TB6                     ADD!  R14,R20,R17 
+              FB6                     BSR   RA,~Try1 (37) 
+              FB6                     SUB   SP,SP,#128 
+              FB6                     ASL   R13,R5,#2 
+              FB6                     GTS!  B2,R5,#7 
+              FB6                     MOV!  R11,#1 
+              FB6                     ADD!  R12,R5,#1 
+              TB6                     ASL!  R21,R15,#2 
+              TB6                     ASL!  R22,R14,#2 
+              FB6                     ST    0(SP),RA 
+              FB6                     ST    8(SP),R17 
+              FB6                     ST    12(SP),R18 
+              FB6                     ST    16(SP),R19 
+              FB6                     ST    20(SP),R20 
+              FB6                     ST    24(SP),R21 
+              FB6                     ST    28(SP),R22 
+              FB6                     ST    32(SP),R23 
+              FB6                     ST    36(SP),R24 
+              FB6                     ST    40(SP),R25 
+              FB6                     ST    44(SP),R26 
+              FB6                     ST    48(SP),R27 
+              FB6                     MOV   R20,R5 
+              FB6                     ST    (R0,R6),R0 
+              FB6                     ST    (R0,R6),R0 
+              FB6                     MOV   R19,R6 
+              FB6                     MOV   R24,R7 
+              FB6                     ADD   R18,R8,#4 
+              FB6                     MOV   R26,R8 
+              FB6                     MOV   R23,R9 
+              FB6                     ADD   R27,R10,R13 
+              FB6                     MOV   R25,R10 
+              FB6                     CLR   R17 
+              FB6                     LD!   RA,0(SP) 
+                                      ADD   R17,R17,#1 
+                                      MOV!  R7,R24 
+                                      MOV!  R8,R26 
+                                      MOV!  R9,R23 
+                                      MOV!  R10,R25 
+                                      LD    R13,(R0,R18) 
+                                      LD!   RA,0(SP) 
+                                      MOV!  R10,R25 
+                                      MOV!  R9,R23 
+                                      MOV!  R8,R26 
+                                      MOV!  R7,R24 
+                                      ADD!  R12,R20,#1 
+                                      NE!   B3,R17,#8 
+                                      LD    R13,(R0,R19) 
+                                      MOV!  R11,#1 
+                                      ADD!  R42,R24,R22 
+                                      ADD!  R43,R21,R23 
+                                      ADD!  R17,R17,#1 
+                                      ADD!  R44,R43,#28 
+                                      SUB!  R15,R20,R17 
+                                      ADD!  R14,R20,R17 
+                                      ASL!  R21,R15,#2 
+                                      ASL!  R22,R14,#2 
+                                      NE    B1,R13,#0 
+  
+              TB1                     MOV   PC,RA(18) 
+              TB1                     LD    R27,48(SP) 
+              TB1                     LD    R26,44(SP) 
+              TB1                     LD    R25,40(SP) 
+              TB1                     LD    R24,36(SP) 
+              TB1                     LD    R23,32(SP) 
+              TB1                     LD    R22,28(SP) 
+              TB1                     LD    R21,24(SP) 
+              TB1                     LD    R20,20(SP) 
+              TB1                     LD    R19,16(SP) 
+              TB1                     LD    R18,12(SP) 
+              TB1                     LD    R17,8(SP) 
+              TB1                     ADD   SP,SP,#128 
+              FB1                     ST    (R0,R18),R11 
+              FB1                     ST    (R0,R42),R11 
+              FB1                     ST    (R0,R44),R11 
+              FB1                     MOV!  R11,#1 
+              FB1                     ADD!  R18,R18,#4 
+              FB1                     LD    R13,(R0,R19) 
+  L2          
+        L5                                  NE    B1,R13,#0 
+                                      GTS!  B2,R20,#7 
+                                      ADD!  R6,R24,R22 
+                                      ADD!  R16,R21,R23 
+                                      BT    B1,Sx2(16) 
+              TB1                     LD    R17,8(SP) 
+              TB1                     LD    R18,12(SP) 
+              TB1                     LD    R19,16(SP) 
+              TB1                     LD    R20,20(SP) 
+              TB1                     LD    R21,24(SP) 
+              TB1                     LD    R22,28(SP) 
+              TB1                     LD    R23,32(SP) 
+              TB1                     LD    R24,36(SP) 
+              TB1                     LD    R25,40(SP) 
+              TB1                     LD    R26,44(SP) 
+              TB1                     LD    R27,48(SP) 
+              TB1                     ADD   SP,SP,#128 
+              FB1 TB3                 ST!   (R0,R19),R0 
+              FB1                     LD!   R13,(R0,R18) 
+              FB1                     ADD!  R40,R16,#28 
+              FB1                     LD!   R41,(R0,R40) 
+                                      BT    B3,L8(15) 
+              TB3                     EQ    B1,R13,#0 
+              TB3                     LD!   R13,(R0,R6) 
+              FB3                     MOV   PC,RA(12) 
+              FB3                     LD    R27,48(SP) 
+              FB3                     LD    R26,44(SP) 
+              FB3                     LD    R25,40(SP) 
+              FB3                     LD    R24,36(SP) 
+              FB3                     LD    R23,32(SP) 
+              FB3                     LD    R22,28(SP) 
+              FB3                     LD    R21,24(SP) 
+              FB3                     LD    R20,20(SP) 
+              FB3                     LD    R19,16(SP) 
+              FB3                     LD    R18,12(SP) 
+              FB3                     LD    R17,8(SP) 
+              FB3                     ADD   SP,SP,#128 
+  Sx2                                 MOV   PC,RA(0) 
+
+  _Doit                               MOV   SP',SP 
+                                      AND   SP,SP,#-256 
+                                      MOV   R10,R5 
+                                      MOV   R5,#-7 
+                                      MOV!  R11,#1 
+                                      SUB   SP,SP,#256 
+                                      ADD   R13,R5,#-1 
+                                      LES!  B2,R5,#1 
+                                      GTS!  B3,R5,#7 
+                                      ADD!  R5,R5,#1 
+  ~Doit1                              ST    4(SP),SP' 
+                                      ST    0(SP),RA 
+                                      ST    176(SP),R17 
+                                      ADD   R7,SP,#112 
+                                      ADD   R6,SP,#-20 
+                                      GTU   B1,R13,#7 
+                                      ADD!  R13,R5,#-1 
+                                      LES!  B4,R5,#16 
+              FB1                     ST!   (R0,R6),R11 
+                                      ADD!  R12,R7,#4 
+                                      ADD!  R15,R6,#36 
+                                      ADD!  R14,R6,#4 
+                                      MOV!  R11,#1 
+              FB2                     ST    (R0,R15),R11 
+                                      MOV!  R6,R14 
+              FB3                     MOV   R11,#1 
+  L12         
+        L15         FB3                     ST    (R0,R7),R11 
+                                      ADD!  R17,SP,#172 
+                                      ADD!  R16,SP,#44 
+                                      ADD!  R8,SP,#8 
+                                      ADD!  R9,SP,#112 
+                                      LES!  B2,R5,#1 
+                                      GTS!  B3,R5,#7 
+                                      ADD!  R14,R6,#4 
+                                      ADD!  R5,R5,#1 
+                                      ADD!  R15,R6,#36 
+                                      MOV!  R11,#1 
+                                      GTU!  B1,R13,#7 
+                                      MOV!  R7,R12 
+                                      MOV   B5,B4 
+                                      BT    B4,L12(41) 
+              FB1 TB4                 ST!   (R0,R6),R11 
+              TB4                     ADD!  R12,R7,#4 
+              TB4                     ADD!  R13,R5,#-1 
+              TB4                     MOV!  R6,R14 
+              TB4                     MOV!  R11,#1 
+              FB4                     BSR   RA,~Try2 (35) 
+              FB4                     MOV   R5,#1 
+              FB4                     MOV   R6,R17 
+              FB4                     MOV!  R7,R16 
+              FB2 TB5                 ST    (R0,R15),R11 
+              TB5                     LES!  B4,R5,#16 
+              FB3 TB5                 MOV   R11,#1 
+              FB5                     SUB   SP,SP,#128 
+              FB5                     ASL   R13,R5,#2 
+              FB5                     GTS!  B2,R5,#7 
+              FB5                     MOV!  R11,#1 
+              FB5                     ADD!  R12,R5,#1 
+              FB5                     ST    0(SP),RA 
+              FB5                     ST    8(SP),R17 
+              FB5                     ST    12(SP),R18 
+              FB5                     ST    16(SP),R19 
+              FB5                     ST    20(SP),R20 
+              FB5                     ST    24(SP),R21 
+              FB5                     ST    28(SP),R22 
+              FB5                     ST    32(SP),R23 
+              FB5                     ST    36(SP),R24 
+              FB5                     ST    40(SP),R25 
+              FB5                     ST    44(SP),R26 
+              FB5                     ST    48(SP),R27 
+              FB5                     MOV   R20,R5 
+              FB5                     ST    (R0,R6),R0 
+              FB5                     ST    (R0,R6),R0 
+              FB5                     MOV   R19,R6 
+              FB5                     MOV   R24,R7 
+              FB5                     ADD   R18,R8,#4 
+              FB5                     MOV   R26,R8 
+              FB5                     MOV   R23,R9 
+              FB5                     ADD   R27,R10,R13 
+              FB5                     MOV   R25,R10 
+              FB5                     CLR   R17 
+              FB5                     LD!   RA,0(SP) 
+                                      LD    R13,(R0,R17) 
+                                      LD!   RA,0(SP) 
+                                      NE    B1,R13,#0 
+  
+              TB1                     MOV   PC,RA(4) 
+              TB1                     LD    R17,176(SP) 
+              TB1                     LD    SP,4(SP) 
+              FB1                     BSR   RA,_printf (1) 
+              FB1                     MOV   R5,#Lc0 
+                                      LD    R17,176(SP) 
+                                      LD    RA,0(SP) 
+                                      LD    SP,4(SP) 
+                                      MOV   PC,RA(0) 
+
+  _Queens                             SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      ST    48(SP),R17 
+                                      MOV   R17,#1 
+                                      ADD   R5,SP,#8 
+  ~Queens1                            BSR   RA,~Doit1 (11) 
+                                      ADD   R17,R17,#1 
+                                      MOV   SP',SP 
+                                      AND   SP,SP,#-256 
+                                      MOV   R10,R5 
+                                      MOV   R5,#-7 
+                                      MOV!  R11,#1 
+                                      SUB   SP,SP,#256 
+                                      ADD   R13,R5,#-1 
+                                      LES!  B2,R5,#1 
+                                      GTS!  B3,R5,#7 
+                                      ADD!  R5,R5,#1 
+  Sx5         
+        Sx4         
+        return1                             LES   B1,R17,#10 
+                                      ADD!  R5,SP,#8 
+                                      ADD!  R17,R17,#1 
+                                      BT    B1,Sx5(14) 
+              TB1                     BRA   ~Doit1(13) 
+              TB1                     MOV   RA,#return1 
+              TB1                     MOV   SP',SP 
+              TB1                     AND   SP,SP,#-256 
+              TB1                     MOV   R10,R5 
+              TB1                     MOV   R5,#-7 
+              TB1                     MOV!  R11,#1 
+              FB1                     BSR   RA,_printf (6) 
+              FB1                     MOV   R5,#Lc1 
+              TB1                     SUB   SP,SP,#256 
+              TB1                     ADD   R13,R5,#-1 
+              TB1                     LES!  B2,R5,#1 
+              TB1                     GTS!  B3,R5,#7 
+              TB1                     ADD!  R5,R5,#1 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc2 
+                                      LD    R6,12(SP) 
+                                      LD    R7,16(SP) 
+                                      LD    R8,20(SP) 
+                                      LD    R9,24(SP) 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc3 
+                                      LD    R6,28(SP) 
+                                      LD    R7,32(SP) 
+                                      LD    R8,36(SP) 
+                                      LD    R9,40(SP) 
+                                      BSR   RA,_printf (1) 
+                                      MOV   R5,#Lc4 
+                                      LD    RA,0(SP) 
+                                      LD    R17,48(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+
+  _main                               SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+  ~main1                              BSR   RA,~Queens1 (5) 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      ST    48(SP),R17 
+                                      MOV   R17,#1 
+                                      ADD   R5,SP,#8 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+ Lc0: 	.ascii "Error in Queens.\12\0"
+ Lc1: 	.ascii "\12\12end of run for queens.c which solves the 8 queens problem 50? times\0"
+ Lc2: 	.ascii "\12positions of queens are     : %d%d%d%d\0"
+ Lc3: 	.ascii "%d%d%d%d\0"
+ Lc4: 	.ascii "\12correct values of positions : 15863724\12\12\0"
+

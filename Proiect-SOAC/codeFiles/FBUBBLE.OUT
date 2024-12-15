@@ -1,0 +1,221 @@
+
+                                      BSR   RA,~main1 (4) 
+                                      MOV   GP,#4096 
+                                      MOV   SP,#4096 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      TRAP  0 
+
+  _binitarr                           SUB   SP,SP,#136 
+                                      MOV   R13,#74755 
+                                      ST    132(SP),R20 
+                                      ST    128(SP),R19 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    _seed,R13 
+                                      ST    _biggest,R0 
+                                      ST    _littlest,R0 
+                                      MOV   R18,#1 
+                                      LD    R13,_seed 
+                                      MOV!  R19,#4356 
+                                      MOV   R17,#_sortlist+4 
+                                      LD!   RA,0(SP) 
+                                      ADD!  R18,R18,#1 
+                                      ADD!  R20,R19,#4 
+  ~binitarr1                          MULT  R13,R13,#1309 
+                                      LES!  B2,R18,#200 
+                                      ADD!  R18,R18,#1 
+                                      ADD   R13,R13,#13849 
+                                      AND   R13,R13,#65535 
+                                      ST    _seed,R13 
+                                      DIV   R11,R13,#100000 
+                                      MOV   R5,R13 
+  L10                                 MULT  R13,R11,#100000 
+                                      SUB   R13,R5,R13 
+                                      ADD   R5,R13,#-50000 
+                                      ST    (R0,R17),R5 
+                                      LD    R13,_biggest 
+                                      LD!   R12,_littlest 
+                                      MOV!  R17,R19 
+                                      LD!   R14,_seed 
+                                      MOV!  R19,R20 
+                                      LES   B1,R5,R13 
+                                      GES!  B3,R5,R12 
+                                      ADD!  R20,R19,#4 
+              TB1 FB3                 ST!   _littlest,R5 
+              FB1                     ST    _biggest,R5 
+                                      MULT! R13,R14,#1309 
+                                      MOV   B1,B2 
+                                      BT    B2,L10(13) 
+              TB2                     ADD   R13,R13,#13849 
+              FB2                     MOV   PC,RA(11) 
+              FB2                     LD    R17,8(SP) 
+              FB2                     LD    R18,12(SP) 
+              FB2                     LD    R19,128(SP) 
+              FB2                     LD    R20,132(SP) 
+              FB2                     ADD   SP,SP,#136 
+              TB1                     LES!  B2,R18,#200 
+              TB1                     AND   R13,R13,#65535 
+              TB1                     ADD!  R18,R18,#1 
+              TB1                     ST    _seed,R13 
+              TB1                     DIV   R11,R13,#100000 
+              TB1                     MOV   R5,R13 
+
+  _Bubble                             SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+  ~Bubble1                            BSR   RA,~binitarr1 (17) 
+                                      SUB   SP,SP,#136 
+                                      MOV   R13,#74755 
+                                      ST    132(SP),R20 
+                                      ST    128(SP),R19 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    _seed,R13 
+                                      ST    _biggest,R0 
+                                      ST    _littlest,R0 
+                                      MOV   R18,#1 
+                                      LD    R13,_seed 
+                                      MOV!  R19,#4356 
+                                      MOV   R17,#_sortlist+4 
+                                      LD!   RA,0(SP) 
+                                      ADD!  R18,R18,#1 
+                                      ADD!  R20,R19,#4 
+                                      MOV   R12,#200 
+                                      MOV   R11,#_sortlist 
+                                      MOV!  R40,#4356 
+                                      MOV   R8,#1 
+                                      MOV!  R46,#4356 
+                                      MOV   R10,#_sortlist+4 
+                                      ST    _top,R12 
+                                      LD    R13,_top 
+                                      ADD!  R41,R11,#4 
+                                      LD!   R42,(R0,R40) 
+                                      ADD!  R14,R40,#4 
+                                      ADD!  R43,R8,#1 
+                                      ADD!  R47,R11,#4 
+                                      LD!   R5,(R0,R41) 
+                                      ADD!  R15,R41,#4 
+                                      ADD!  R44,R14,#4 
+                                      ADD!  R16,R43,#1 
+                                      GES   B4,R8,R13 
+                                      ADD!  R45,R15,#4 
+                                      LTS!  B2,R43,R13 
+                                      LES!  B3,R5,R42 
+              FB3 FB4                 ST!   (R0,R41),R42 
+              FB3 FB4                 ST!   (R0,R40),R5 
+                                      LD!   R5,(R0,R15) 
+                                      LD!   R48,(R0,R14) 
+  L18                                 BT    B4,L15(23) 
+              TB4                     LD    R13,_top 
+              TB4                     ADD!  R14,R46,#4 
+              TB4                     MOV!  R40,R46 
+              TB4                     ADD!  R15,R47,#4 
+              TB4                     MOV!  R41,R47 
+              TB4                     MOV!  R43,#2 
+              TB4                     ADD!  R46,R10,#4 
+              TB4                     ADD!  R47,R11,#4 
+              FB4                     MOV!  R41,R47 
+              FB4                     MOV!  R40,R46 
+              FB4                     MOV!  R8,R43 
+              FB4                     MOV   R9,R13 
+              FB4                     MOV!  R6,R15 
+              FB4                     MOV!  R7,R14 
+              FB4                     MOV!  R43,#2 
+              FB4                     ADD!  R15,R47,#4 
+              FB4                     ADD!  R14,R46,#4 
+              FB4                     LD!   R13,_top 
+              TB4                     ADD!  R44,R14,#4 
+              TB4                     ADD!  R45,R15,#4 
+              TB4                     ADD!  R16,R43,#1 
+              FB4                     LES!  B1,R5,R48 
+              TB4                     ADD   R13,R13,#-1 
+  L17                                 MOV   B3,B2 
+                                      BT    B2,L17(19) 
+              FB1 TB2                 ST!   (R0,R6),R48 
+              FB1 TB2                 ST!   (R0,R7),R5 
+              TB2                     LD!   R5,(R0,R45) 
+              TB2                     LD!   R48,(R0,R44) 
+              TB2                     MOV!  R7,R44 
+              TB2                     MOV!  R6,R45 
+              TB2                     MOV!  R8,R16 
+              FB2                     ADD!  R13,R13,#-1 
+              FB2                     ADD!  R16,R43,#1 
+              FB2                     ADD!  R45,R15,#4 
+              FB2                     ADD!  R44,R14,#4 
+              FB2                     ADD!  R47,R11,#4 
+              FB2                     ADD!  R46,R10,#4 
+              TB3                     LD!   R13,_top 
+              TB3                     LTS!  B2,R8,R9 
+              TB3                     ADD!  R44,R7,#4 
+              TB3                     ADD!  R45,R6,#4 
+              TB3                     ADD!  R16,R8,#1 
+              TB3                     LES!  B1,R5,R48 
+  L15                                 ST    _top,R13 
+                                      GTS   B1,R13,#1 
+                                      LD!   R13,_top 
+                                      LD!   R5,(R0,R41) 
+                                      LD!   R42,(R0,R40) 
+                                      BT    B1,L18(15) 
+              TB1                     MOV   R8,#1 
+              FB1                     LD    R5,_sortlist+4 
+              FB1                     LD    R13,_littlest 
+              FB1                     LD!   R49,_sortlist+800 
+              FB1                     LD!   R50,_biggest 
+              TB1                     GES   B4,R8,R13 
+              TB1                     LTS!  B2,R43,R13 
+              TB1                     LES!  B3,R5,R42 
+              TB1 FB3 FB4             ST!   (R0,R41),R42 
+              TB1 FB3 FB4             ST!   (R0,R40),R5 
+              TB1                     LD!   R5,(R0,R15) 
+              TB1                     LD!   R48,(R0,R14) 
+              FB1                     NE    B2,R5,R13 
+              FB1                     MOV!  R5,#Lc0 
+              FB1                     EQ!   B3,R49,R50 
+                                      BT    B2,L19(2) 
+              TB2                     BRA   _printf(1) 
+              TB2                     MOV   RA,#return1 
+  
+              FB3                     BSR   RA,_printf (0) 
+  L19         
+        Sx1         
+        return1                             BSR   RA,_printf (2) 
+                                      MOV   R5,#Lc1 
+                                      MOV   R6,#200 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc2 
+                                      LD    R6,_sortlist+4 
+                                      LD    R7,_sortlist+8 
+                                      LD    R8,_sortlist+12 
+                                      LD    R9,_sortlist+16 
+                                      BSR   RA,_printf (4) 
+                                      MOV   R5,#Lc3 
+                                      LD    R6,_sortlist+120 
+                                      MOV   R7,#200 
+                                      LD    R8,_sortlist+800 
+                                      BSR   RA,_printf (1) 
+                                      MOV   R5,#Lc4 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+
+  _main                               SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+  ~main1                              BSR   RA,~Bubble1 (2) 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+ Lc0: 	.ascii "Error3 in Bubble.\12\0"
+ Lc1: 	.ascii "\12\12bubblecd has sorted %d elements\0"
+ Lc2: 	.ascii "\12Final values are   : \12[1]= %d [2]= %d [3]= %d [4]= %d\0"
+ Lc3: 	.ascii " [30]= %d [%d]= %d\0"
+ Lc4: 	.ascii "\12Correct values are : \12     -50000      -49423      -48454      -47989       -39455        15224\12\12\0"
+	.comm _sortlist,804,
+	.comm _biggest,4,
+	.comm _littlest,4,
+	.comm _top,4,
+	.comm _seed,4,
+

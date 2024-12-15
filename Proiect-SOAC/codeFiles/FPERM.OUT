@@ -1,0 +1,265 @@
+
+                                      BSR   RA,~main1 (4) 
+                                      MOV   GP,#4096 
+                                      MOV   SP,#4096 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      TRAP  0 
+
+  _Initialize                         SUB   SP,SP,#128 
+                                      MOV   R5,#1 
+                                      MOV   R7,#4296 
+                                      MOV   R6,#_permarray+4 
+                                      ADD   R13,R5,#-1 
+                                      ADD   R5,R5,#1 
+                                      ST    (R0,R6),R13 
+                                      MOV   R6,R7 
+                                      LES   B1,R5,#7 
+                                      ADD!  R13,R5,#-1 
+  L6                                  MOV   B2,B1 
+                                      BT    B1,L6(15) 
+              TB1                     ST    (R0,R6),R13 
+              TB1                     ADD   R7,R6,#4 
+              TB1                     ADD   R5,R5,#1 
+              FB1                     ADD   SP,SP,#128 
+              TB2                     ADD!  R13,R5,#-1 
+              TB2                     MOV   R6,R7 
+              TB2                     LES   B1,R5,#7 
+              TB2                     LES   B3,R5,#7 
+              FB2                     MOV   PC,RA(6) 
+              TB2 TB3                 ST    (R0,R6),R13 
+              TB2 TB3                 ADD   R7,R6,#4 
+              TB2 TB3                 ADD   R5,R5,#1 
+              TB2 TB3                 ADD!  R13,R5,#-1 
+              TB2 TB3                 MOV   R6,R7 
+              TB2 TB3                 LES   B1,R5,#7 
+
+  _Permute                            SUB   SP,SP,#144 
+                                      EQ    B1,R5,#1 
+                                      ST    140(SP),R24 
+                                      ST    136(SP),R23 
+                                      ST    132(SP),R22 
+                                      ST    128(SP),R21 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      LD    R13,_pctr 
+                                      LD!   RA,0(SP) 
+                                      ADD!  R17,R5,#-1 
+                                      MOV   R20,R5 
+  ~Permute2                           ADD!  R24,R17,#-1 
+  ~Permute1                           ADD   R13,R13,#1 
+                                      ADD!  R23,R24,#-1 
+                                      MOV   B2,B1 
+                                      ST    _pctr,R13 
+  
+              TB2                     MOV   PC,RA(13) 
+              TB2                     LD    R17,8(SP) 
+              TB2                     LD    R18,12(SP) 
+              TB2                     LD    R19,16(SP) 
+              TB2                     LD    R20,20(SP) 
+              TB2                     LD    R21,128(SP) 
+              TB2                     LD    R22,132(SP) 
+              TB2                     LD    R23,136(SP) 
+              TB2                     LD    R24,140(SP) 
+              TB2                     ADD   SP,SP,#144 
+              FB2                     MOV   R5,R17 
+              FB2                     BSR   RA,~Permute1 (16) 
+              FB2                     SUB   SP,SP,#144 
+              FB2                     EQ    B1,R5,#1 
+              FB2                     ST    140(SP),R24 
+              FB2                     ST    136(SP),R23 
+              FB2                     ST    132(SP),R22 
+              FB2                     ST    128(SP),R21 
+              FB2                     ST    0(SP),RA 
+              FB2                     ST    8(SP),R17 
+              FB2                     ST    12(SP),R18 
+              FB2                     ST    16(SP),R19 
+              FB2                     ST    20(SP),R20 
+              FB2                     LD    R13,_pctr 
+              FB2                     LD!   RA,0(SP) 
+              FB2                     ADD!  R17,R5,#-1 
+              FB2                     MOV   R20,R5 
+                                      ADD!  R24,R17,#-1 
+                                      LD!   RA,0(SP) 
+                                      LES   B1,R17,#0 
+                                      ASL!  R13,R20,#2 
+                                      MOV!  R7,#_permarray 
+                                      ASL!  R15,R17,#2 
+                                      ADD!  R12,R20,#-1 
+                                      ADD!  R19,R13,R7 
+                                      ADD!  R17,R15,R7 
+  
+              TB1                     MOV   PC,RA(15) 
+              TB1                     LD    R24,140(SP) 
+              TB1                     LD    R23,136(SP) 
+              TB1                     LD    R22,132(SP) 
+              TB1                     LD    R21,128(SP) 
+              TB1                     LD    R20,20(SP) 
+              TB1                     LD    R19,16(SP) 
+              TB1                     LD    R18,12(SP) 
+              TB1                     LD    R17,8(SP) 
+              TB1                     ADD   SP,SP,#144 
+              FB1                     LD    R11,(R0,R19) 
+              FB1                     LD    R7,(R0,R17) 
+              FB1                     MOV   R5,R17 
+              FB1                     MOV   R6,R17 
+              FB1                     ADD   R21,R17,#-4 
+              FB1                     ADD!  R22,R21,#-4 
+              FB1                     ST    (R0,R19),R7 
+              FB1                     ST    (R0,R5),R11 
+              FB1                     MOV   R5,R12 
+                                      BSR   RA,~Permute1 (16) 
+                                      SUB   SP,SP,#144 
+                                      EQ    B1,R5,#1 
+                                      ST    140(SP),R24 
+                                      ST    136(SP),R23 
+                                      ST    132(SP),R22 
+                                      ST    128(SP),R21 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      LD    R13,_pctr 
+                                      LD!   RA,0(SP) 
+                                      ADD!  R17,R5,#-1 
+                                      MOV   R20,R5 
+                                      ADD!  R24,R17,#-1 
+  Sx2         
+        return1                             LD    R14,(R0,R19) 
+                                      MOV   R13,R19 
+                                      LD    R7,(R0,R17) 
+                                      MOV   R6,R17 
+                                      MOV   R17,R21 
+                                      GTS   B1,R24,#0 
+                                      ADD!  R12,R20,#-1 
+                                      MOV!  R21,R22 
+                                      MOV!  R24,R23 
+                                      LD!   RA,0(SP) 
+                                      MOV   R5,R6 
+                                      MOV!  R6,R17 
+                                      ADD!  R22,R21,#-4 
+                                      ADD!  R23,R24,#-1 
+                                      MOV   B3,B1 
+                                      ST    (R0,R13),R7 
+                                      ST    (R0,R5),R14 
+                                      LD!   R11,(R0,R19) 
+                                      MOV!  R13,R19 
+                                      LD!   R7,(R0,R17) 
+  
+              TB3                     ST    (R0,R13),R7 
+              TB3                     ST    (R0,R6),R11 
+              TB3                     MOV   R5,R12 
+              FB3                     MOV   PC,RA(26) 
+              FB3                     LD    R24,140(SP) 
+              FB3                     LD    R23,136(SP) 
+              FB3                     LD    R22,132(SP) 
+              FB3                     LD    R21,128(SP) 
+              FB3                     LD    R20,20(SP) 
+              FB3                     LD    R19,16(SP) 
+              FB3                     LD    R18,12(SP) 
+              FB3                     LD    R17,8(SP) 
+              FB3                     ADD   SP,SP,#144 
+              TB3                     BRA   ~Permute1(17) 
+              TB3                     MOV   RA,#return1 
+              TB3                     SUB   SP,SP,#144 
+              TB3                     EQ    B1,R5,#1 
+              TB3                     ST    140(SP),R24 
+              TB3                     ST    136(SP),R23 
+              TB3                     ST    132(SP),R22 
+              TB3                     ST    128(SP),R21 
+              TB3                     ST    0(SP),RA 
+              TB3                     ST    8(SP),R17 
+              TB3                     ST    12(SP),R18 
+              TB3                     ST    16(SP),R19 
+              TB3                     ST    20(SP),R20 
+              TB3                     LD    R13,_pctr 
+              TB3                     LD!   RA,0(SP) 
+              TB3                     ADD!  R17,R5,#-1 
+              TB3                     MOV   R20,R5 
+  Sx1                                 ADD!  R24,R17,#-1 
+
+  _Perm                               SUB   SP,SP,#132 
+                                      ST    128(SP),R18 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    _pctr,R0 
+                                      MOV   R17,#1 
+  ~Perm1                              BSR   RA,_Initialize (2) 
+                                      ADD   R17,R17,#1 
+                                      ADD!  R18,R17,#1 
+  Sx7         
+        Sx6         
+        return2                             BSR   RA,~Permute2 (16) 
+                                      MOV   R5,#7 
+                                      SUB   SP,SP,#144 
+                                      EQ    B1,R5,#1 
+                                      ST    140(SP),R24 
+                                      ST    136(SP),R23 
+                                      ST    132(SP),R22 
+                                      ST    128(SP),R21 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      LD    R13,_pctr 
+                                      LD!   RA,0(SP) 
+                                      ADD!  R17,R5,#-1 
+                                      MOV   R20,R5 
+                                      LES   B1,R17,#1 
+                                      MOV!  R17,R18 
+                                      BT    B1,Sx7(6) 
+              TB1                     BRA   _Initialize(5) 
+              TB1                     MOV   RA,#return2 
+              TB1                     ADD!  R18,R17,#1 
+              FB1                     BSR   RA,_printf (2) 
+              FB1                     MOV   R5,#Lc0 
+              FB1                     LD    R6,_pctr 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc1 
+                                      LD    R6,_permarray+4 
+                                      LD    R7,_permarray+8 
+                                      LD    R8,_permarray+12 
+                                      LD    R9,_permarray+16 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc2 
+                                      LD    R6,_permarray+20 
+                                      LD    R7,_permarray+24 
+                                      LD    R8,_permarray+28 
+                                      LD    R9,_permarray+32 
+                                      BSR   RA,_printf (3) 
+                                      MOV   R5,#Lc3 
+                                      LD    R6,_permarray+36 
+                                      LD    R7,_permarray+40 
+                                      BSR   RA,_printf (1) 
+                                      MOV   R5,#Lc4 
+                                      LD    RA,0(SP) 
+                                      LD    R17,8(SP) 
+                                      LD    R18,128(SP) 
+                                      ADD   SP,SP,#132 
+                                      MOV   PC,RA(0) 
+
+  _main                               SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+  ~main1                              BSR   RA,~Perm1 (6) 
+                                      SUB   SP,SP,#132 
+                                      ST    128(SP),R18 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    _pctr,R0 
+                                      MOV   R17,#1 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+ Lc0: 	.ascii "\12\12end of run for perm.c    pctr = %d  (should be 8660)\0"
+ Lc1: 	.ascii "\12array element values   = %d %d %d %d\0"
+ Lc2: 	.ascii " %d %d %d %d\0"
+ Lc3: 	.ascii " %d %d\0"
+ Lc4: 	.ascii "\12correct element values = 0 1 2 3 4 5 6 7 0 0 \12\12\0"
+	.comm _permarray,44,
+	.comm _pctr,4,
+

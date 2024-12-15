@@ -1,0 +1,293 @@
+
+                                      BSR   RA,~main1 (4) 
+                                      MOV   GP,#4096 
+                                      MOV   SP,#4096 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      TRAP  0 
+
+  _Initmatrix                         SUB   SP,SP,#140 
+                                      ST    136(SP),R23 
+                                      ST    132(SP),R22 
+                                      ST    128(SP),R21 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      ADD   R20,R5,#104 
+                                      MOV   R18,#1 
+                                      LD    R13,_seed 
+                                      MOV!  R19,#208 
+                                      LD!   RA,0(SP) 
+  ~Initmatrix2                         ADD   R17,R20,#4 
+                                      ADD!  R20,R20,#104 
+                                      ADD   R18,R18,#1 
+                                      LES!  B3,R19,#2600 
+                                      ADD!  R19,R19,#104 
+  ~Initmatrix1                         ADD   R21,R17,#4 
+                                      MULT  R13,R13,#1309 
+                                      LES   B1,R18,#25 
+                                      ADD!  R23,R20,#4 
+                                      ADD!  R20,R20,#104 
+                                      ADD   R13,R13,#13849 
+  L10         
+        L11                                 AND   R13,R13,#65535 
+                                      ADD!  R22,R21,#4 
+                                      ADD!  R18,R18,#1 
+                                      ST    _seed,R13 
+                                      DIV   R5,R13,#120 
+                                      MOV   R6,R13 
+                                      ASL   R13,R5,#4 
+                                      SUB   R13,R13,R5 
+                                      ASL   R13,R13,#3 
+                                      SUB   R13,R6,R13 
+                                      ADD   R13,R13,#-60 
+                                      ST    (R0,R17),R13 
+                                      LD!   R13,_seed 
+                                      MOV   R17,R21 
+                                      MOV!  R21,R22 
+                                      MOV   B2,B1 
+                                      BT    B1,L10(12) 
+              FB1                     MOV!  R18,#1 
+              FB1                     LD!   R13,_seed 
+              FB1                     ADD!  R21,R23,#4 
+              FB1                     MOV!  R17,R23 
+              FB1                     ADD!  R23,R20,#4 
+              FB1                     ADD!  R20,R20,#104 
+              TB2                     MULT  R13,R13,#1309 
+              TB2                     LES   B1,R18,#25 
+              FB2                     ADD!  R18,R18,#1 
+              TB2                     ADD   R13,R13,#13849 
+              FB2                     MULT! R13,R13,#1309 
+              FB2                     LES!  B1,R18,#25 
+                                      MOV   B2,B3 
+                                      BT    B3,L10(12) 
+              TB3                     ADD   R13,R13,#13849 
+              FB3                     MOV   PC,RA(10) 
+              FB3                     LD    R17,8(SP) 
+              FB3                     LD    R18,12(SP) 
+              FB3                     LD    R19,16(SP) 
+              FB3                     LD    R20,20(SP) 
+              FB3                     LD    R21,128(SP) 
+              FB3                     LD    R22,132(SP) 
+              FB3                     LD    R23,136(SP) 
+              FB3                     ADD   SP,SP,#140 
+              TB2                     LES!  B3,R19,#2600 
+              TB2                     ADD!  R19,R19,#104 
+
+  _Innerproduct                         SUB   SP,SP,#128 
+                                      MOV   R13,R8 
+                                      MOV   R8,#1 
+                                      ASL   R9,R9,#2 
+                                      ADD   R7,R7,#104 
+                                      ST    (R0,R5),R0 
+                                      LD    R11,(R0,R5) 
+                                      MOV   R10,R5 
+                                      ASL   R5,R13,#1 
+                                      ADD   R16,R7,R9 
+                                      ADD   R8,R8,#1 
+                                      ADD   R7,R7,#104 
+  ~Innerproduct1                         ADD   R5,R5,R13 
+                                      LD    R40,(R0,R16) 
+                                      LES   B1,R8,#25 
+                                      ADD!  R12,R7,R9 
+                                      ADD!  R8,R8,#1 
+                                      ADD!  R7,R7,#104 
+                                      ASL   R5,R5,#2 
+                                      ADD   R5,R5,R13 
+                                      ASL   R5,R5,#3 
+                                      ADD   R13,R5,R6 
+                                      ADD   R6,R13,#4 
+                                      LD    R5,(R0,R6) 
+                                      ADD   R6,R6,#4 
+                                      ADD!  R14,R6,#4 
+                                      MULT  R5,R5,R40 
+                                      ADD   R13,R5,R11 
+  L16                                 ST    (R0,R10),R13 
+                                      LD!   R15,(R0,R6) 
+                                      LD!   R11,(R0,R10) 
+                                      LD!   R13,(R0,R12) 
+                                      ADD!  R12,R7,R9 
+                                      ADD!  R7,R7,#104 
+                                      MOV!  R6,R14 
+                                      MOV   B2,B1 
+                                      BT    B1,L16(7) 
+              TB1                     ADD!  R14,R6,#4 
+              FB1                     MOV   PC,RA(5) 
+              FB1                     ADD   SP,SP,#128 
+              TB2                     LES   B1,R8,#25 
+              TB2                     MULT  R5,R15,R13 
+              TB2                     ADD!  R8,R8,#1 
+              TB2                     ADD   R13,R5,R11 
+
+  _Intmm                              SUB   SP,SP,#140 
+                                      MOV   R13,#74755 
+                                      MOV   R5,#_ima 
+                                      ST    136(SP),R24 
+                                      ST    132(SP),R23 
+                                      ST    128(SP),R22 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      ST    24(SP),R21 
+                                      ST    _seed,R13 
+  ~Intmm1                             BSR   RA,~Initmatrix1 (19) 
+                                      SUB   SP,SP,#140 
+                                      ST    136(SP),R23 
+                                      ST    132(SP),R22 
+                                      ST    128(SP),R21 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      ADD   R20,R5,#104 
+                                      MOV   R18,#1 
+                                      LD    R13,_seed 
+                                      MOV!  R19,#208 
+                                      LD!   RA,0(SP) 
+                                      ADD   R17,R20,#4 
+                                      ADD!  R20,R20,#104 
+                                      ADD   R18,R18,#1 
+                                      LES!  B3,R19,#2600 
+                                      ADD!  R19,R19,#104 
+                                      BSR   RA,~Initmatrix2 (15) 
+                                      MOV   R5,#_imb 
+                                      SUB   SP,SP,#140 
+                                      ST    136(SP),R23 
+                                      ST    132(SP),R22 
+                                      ST    128(SP),R21 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      ADD   R20,R5,#104 
+                                      MOV   R18,#1 
+                                      LD    R13,_seed 
+                                      MOV!  R19,#208 
+                                      LD!   RA,0(SP) 
+                                      BSR   RA,_Innerproduct (14) 
+                                      MOV   R19,#1 
+                                      MOV   R20,#104 
+                                      MOV   R17,#1 
+                                      MOV   R18,#_imr+4 
+                                      MOV   R6,#_ima 
+                                      MOV   R7,#_imb 
+                                      MOV   R8,R19 
+                                      MOV   R21,R20 
+                                      ADD!  R20,R20,#104 
+                                      ADD!  R22,R19,#1 
+                                      MOV   R9,R17 
+                                      ADD   R24,R18,#4 
+                                      ADD   R23,R17,#1 
+                                      ADD   R5,R21,R18 
+  Sx2         
+        Sx1         
+        Sx3         
+        return1     
+        return2                             LES   B1,R23,#25 
+                                      ADD!  R5,R21,R24 
+                                      MOV!  R6,#_ima 
+                                      MOV!  R7,#_imb 
+                                      MOV!  R8,R19 
+                                      MOV!  R9,R23 
+                                      ADD!  R24,R24,#4 
+                                      ADD!  R23,R23,#1 
+                                      BT    B1,Sx2(26) 
+              TB1                     BRA   ~Innerproduct1(25) 
+              TB1                     MOV   RA,#return1 
+              TB1                     SUB   SP,SP,#128 
+              TB1                     MOV   R13,R8 
+              TB1                     MOV   R8,#1 
+              TB1                     ASL   R9,R9,#2 
+              TB1                     ADD   R7,R7,#104 
+              TB1                     ST    (R0,R5),R0 
+              TB1                     LD    R11,(R0,R5) 
+              TB1                     MOV   R10,R5 
+              FB1                     LES   B2,R22,#25 
+              FB1                     ADD!  R23,R22,#1 
+              FB1                     MOV!  R19,R22 
+              FB1                     MOV!  R17,#1 
+              FB1                     MOV!  R21,R20 
+              FB1                     MOV!  R18,#_imr+4 
+              FB1                     MOV!  R6,#_ima 
+              FB1                     ADD!  R20,R20,#104 
+              TB1                     ASL   R5,R13,#1 
+              TB1                     ADD   R16,R7,R9 
+              TB1                     ADD   R8,R8,#1 
+              TB1                     ADD   R7,R7,#104 
+              FB1                     MOV!  R22,R23 
+              FB1                     ADD!  R5,R21,R18 
+              FB1                     ADD!  R24,R18,#4 
+              FB1                     ADD!  R23,R17,#1 
+                                      BT    B2,Sx2(20) 
+              TB2                     BRA   ~Innerproduct1(19) 
+              TB2                     MOV   RA,#return2 
+              TB2                     MOV   R7,#_imb 
+              TB2                     MOV   R8,R19 
+              TB2                     MOV   R9,R17 
+              FB2                     BSR   RA,_printf (14) 
+              FB2                     MOV   R5,#Lc0 
+              FB2                     MOV   R6,#25 
+              TB2                     SUB   SP,SP,#128 
+              TB2                     MOV   R13,R8 
+              TB2                     MOV   R8,#1 
+              TB2                     ASL   R9,R9,#2 
+              TB2                     ADD   R7,R7,#104 
+              TB2                     ST    (R0,R5),R0 
+              TB2                     LD    R11,(R0,R5) 
+              TB2                     MOV   R10,R5 
+              TB2                     ASL   R5,R13,#1 
+              TB2                     ADD   R16,R7,R9 
+              TB2                     ADD   R8,R8,#1 
+              TB2                     ADD   R7,R7,#104 
+                                      BSR   RA,_printf (4) 
+                                      MOV   R5,#Lc1 
+                                      LD    R6,_imr+108 
+                                      LD    R7,_imr+1080 
+                                      LD    R8,_imr+2160 
+                                      BSR   RA,_printf (1) 
+                                      MOV   R5,#Lc2 
+                                      LD    RA,0(SP) 
+                                      LD    R17,8(SP) 
+                                      LD    R18,12(SP) 
+                                      LD    R19,16(SP) 
+                                      LD    R20,20(SP) 
+                                      LD    R21,24(SP) 
+                                      LD    R22,128(SP) 
+                                      LD    R23,132(SP) 
+                                      LD    R24,136(SP) 
+                                      ADD   SP,SP,#140 
+                                      MOV   PC,RA(0) 
+
+  _main                               SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+  ~main1                              BSR   RA,~Intmm1 (13) 
+                                      SUB   SP,SP,#140 
+                                      MOV   R13,#74755 
+                                      MOV   R5,#_ima 
+                                      ST    136(SP),R24 
+                                      ST    132(SP),R23 
+                                      ST    128(SP),R22 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      ST    24(SP),R21 
+                                      ST    _seed,R13 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+ Lc0: 	.ascii "\12end of run for matrix.c with rowsize = %d\0"
+ Lc1: 	.ascii "\12Result matrix values : [1][1] = %d  [10][10] = %d  [20][20] = %d\0"
+ Lc2: 	.ascii "\12Correct values are   :          -92             2042             7392\12\12\0"
+	.comm _ima,2704,
+	.comm _imb,2704,
+	.comm _imr,2704,
+	.comm _seed,4,
+

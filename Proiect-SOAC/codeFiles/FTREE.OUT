@@ -1,0 +1,417 @@
+
+                                      BSR   RA,~main1 (4) 
+                                      MOV   GP,#4096 
+                                      MOV   SP,#4096 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      TRAP  0 
+
+  _tInitarr                           SUB   SP,SP,#136 
+                                      MOV   R13,#74755 
+                                      ST    132(SP),R20 
+                                      ST    128(SP),R19 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    _seed,R13 
+                                      ST    _biggest,R0 
+                                      ST    _littlest,R0 
+                                      MOV   R18,#1 
+                                      LD    R13,_seed 
+                                      MOV!  R19,#4148 
+                                      MOV   R17,#_sortlist+4 
+                                      LD!   RA,0(SP) 
+                                      ADD!  R18,R18,#1 
+                                      ADD!  R20,R19,#4 
+  ~tInitarr1                          MULT  R13,R13,#1309 
+                                      LES!  B2,R18,#500 
+                                      ADD!  R18,R18,#1 
+                                      ADD   R13,R13,#13849 
+                                      AND   R13,R13,#65535 
+                                      ST    _seed,R13 
+                                      DIV   R11,R13,#100000 
+                                      MOV   R5,R13 
+  L10                                 MULT  R13,R11,#100000 
+                                      SUB   R13,R5,R13 
+                                      ADD   R5,R13,#-50000 
+                                      ST    (R0,R17),R5 
+                                      LD    R13,_biggest 
+                                      LD!   R12,_littlest 
+                                      MOV!  R17,R19 
+                                      LD!   R14,_seed 
+                                      MOV!  R19,R20 
+                                      LES   B1,R5,R13 
+                                      GES!  B3,R5,R12 
+                                      ADD!  R20,R19,#4 
+              TB1 FB3                 ST!   _littlest,R5 
+              FB1                     ST    _biggest,R5 
+                                      MULT! R13,R14,#1309 
+                                      MOV   B1,B2 
+                                      BT    B2,L10(13) 
+              TB2                     ADD   R13,R13,#13849 
+              FB2                     MOV   PC,RA(11) 
+              FB2                     LD    R17,8(SP) 
+              FB2                     LD    R18,12(SP) 
+              FB2                     LD    R19,128(SP) 
+              FB2                     LD    R20,132(SP) 
+              FB2                     ADD   SP,SP,#136 
+              TB1                     LES!  B2,R18,#500 
+              TB1                     AND   R13,R13,#65535 
+              TB1                     ADD!  R18,R18,#1 
+              TB1                     ST    _seed,R13 
+              TB1                     DIV   R11,R13,#100000 
+              TB1                     MOV   R5,R13 
+
+  _CreateNode                         SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      MOV   R17,R5 
+                                      MOV   R18,R6 
+                                      MOV   R5,#12 
+  ~CreateNode1                         BSR   RA,_malloc (0) 
+                                      ST    (R0,R17),R5 
+                                      ST    (R0,R5),R0 
+                                      LD    RA,0(SP) 
+                                      LD    R13,(R0,R17) 
+                                      ADD   R13,R13,#4 
+                                      MOV   PC,RA(7) 
+                                      ST    (R0,R13),R0 
+                                      LD    R13,(R0,R17) 
+                                      ADD   R13,R13,#8 
+                                      ST    (R0,R13),R18 
+                                      LD    R17,8(SP) 
+                                      LD    R18,12(SP) 
+                                      ADD   SP,SP,#128 
+
+  _Insert                             SUB   SP,SP,#128 
+                                      MOV   R7,R5 
+                                      ADD   R13,R6,#8 
+                                      ADD!  R11,R6,#4 
+                                      MOV   R5,R6 
+                                      ST    0(SP),RA 
+                                      LD    R13,(R0,R13) 
+                                      LD!   RA,0(SP) 
+                                      LD!   R6,(R0,R5) 
+                                      LD!   R12,(R0,R11) 
+  ~Insert2                            LES   B1,R7,R13 
+                                      GES!  B2,R7,R13 
+                                      EQ!   B3,R6,#0 
+  ~Insert1                            BT    B1,L13(2) 
+              TB1                     NE!   B4,R12,#0 
+              TB1                     MOV!  R6,R12 
+                                      BT    B3,Sx5(11) 
+              TB3                     BRA   ~CreateNode1(10) 
+              TB3                     MOV   RA,#return1 
+              TB3                     MOV!  R6,R7 
+              FB3                     MOV!  R5,R7 
+              TB3                     SUB   SP,SP,#128 
+              TB3                     ST    0(SP),RA 
+              TB3                     ST    8(SP),R17 
+              TB3                     ST    12(SP),R18 
+              TB3                     MOV   R17,R5 
+              TB3                     MOV   R18,R6 
+              TB3                     MOV   R5,#12 
+                                      BRA   Sx2(15) 
+                                      BRA   ~Insert1(14) 
+                                      MOV   RA,#return2 
+                                      SUB   SP,SP,#128 
+                                      MOV   R7,R5 
+                                      ADD   R13,R6,#8 
+                                      ADD!  R11,R6,#4 
+                                      MOV   R5,R6 
+                                      ST    0(SP),RA 
+                                      LD    R13,(R0,R13) 
+                                      LD!   RA,0(SP) 
+                                      LD!   R6,(R0,R5) 
+                                      LD!   R12,(R0,R11) 
+                                      LES   B1,R7,R13 
+                                      GES!  B2,R7,R13 
+                                      EQ!   B3,R6,#0 
+  L13                                 BT    B2,Sx6(2) 
+              TB2                     ADD   SP,SP,#128 
+              FB2                     MOV!  R5,R11 
+                                      BT    B4,Sx1(22) 
+              TB4                     MOV   R5,R7 
+              FB4                     BSR   RA,~CreateNode1 (20) 
+              FB4                     MOV   R6,R7 
+              TB4                     BRA   ~Insert1(21) 
+              TB4                     MOV   RA,#return3 
+              TB4                     SUB   SP,SP,#128 
+              TB4                     MOV   R7,R5 
+              TB4                     ADD   R13,R6,#8 
+              TB4                     ADD!  R11,R6,#4 
+              TB4                     MOV   R5,R6 
+              FB4                     SUB   SP,SP,#128 
+              TB4                     ST    0(SP),RA 
+              TB4                     LD    R13,(R0,R13) 
+              TB4                     LD!   RA,0(SP) 
+              TB4                     LD!   R6,(R0,R5) 
+              TB4                     LD!   R12,(R0,R11) 
+              FB4                     ST    0(SP),RA 
+              FB4                     ST    8(SP),R17 
+              FB4                     ST    12(SP),R18 
+              FB4                     MOV   R17,R5 
+              FB4                     MOV   R18,R6 
+              FB4                     MOV   R5,#12 
+  Sx5         
+        Sx3         
+        return1                             LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+  
+                                      MOV   PC,RA(0) 
+  Sx2         
+        L18         
+        return2     
+        return3                             LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+  Sx1                                 LES   B1,R7,R13 
+                                      GES!  B2,R7,R13 
+                                      EQ!   B3,R6,#0 
+  Sx6                                 MOV   PC,RA(0) 
+
+  _Checktree                          SUB   SP,SP,#140 
+                                      ADD!  R11,R5,#8 
+                                      ST    136(SP),R21 
+                                      ST    132(SP),R20 
+                                      ST    128(SP),R19 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      LD    R7,(R0,R5) 
+                                      MOV   R18,R5 
+                                      MOV   R17,#1 
+                                      LD!   RA,0(SP) 
+                                      LD!   R12,(R0,R11) 
+                                      MOV!  R5,#0 
+  ~Checktree2                         ADD!  R21,R18,#8 
+                                      ADD!  R20,R18,#4 
+                                      CLR!  R18 
+  ~Checktree1                         EQ    B1,R7,#0 
+                                      LD!   R14,(R0,R20) 
+                                      LD!   R15,(R0,R21) 
+                                      ADD!  R13,R7,#8 
+                                      BT    B1,L25(11) 
+              TB1                     MOV!  R5,R17 
+              FB1                     LD    R6,(R0,R13) 
+              FB1                     CLR!  R17 
+              TB1                     EQ    B2,R14,#0 
+              TB1                     ADD!  R16,R14,#8 
+              TB1                     MOV!  R7,R14 
+              FB1                     ADD!  R16,R14,#8 
+              FB1                     EQ!   B2,R14,#0 
+              TB1                     LD!   R40,(R0,R16) 
+              FB1                     LD!   R40,(R0,R16) 
+              FB1                     GTS   B3,R6,R12 
+                                      BT    B3,L23(19) 
+              TB3                     MOV   R5,R7 
+              FB3                     MOV!  R7,R14 
+              FB3                     CLR   R17 
+              TB3                     BRA   ~Checktree1(18) 
+              TB3                     MOV   RA,#return4 
+              TB3                     SUB   SP,SP,#140 
+              TB3                     ADD!  R11,R5,#8 
+              TB3                     ST    136(SP),R21 
+              TB3                     ST    132(SP),R20 
+              TB3                     ST    128(SP),R19 
+              TB3                     ST    0(SP),RA 
+              TB3                     ST    8(SP),R17 
+              TB3                     ST    12(SP),R18 
+              TB3                     LD    R7,(R0,R5) 
+              TB3                     MOV   R18,R5 
+              TB3                     MOV   R17,#1 
+              TB3                     LD!   RA,0(SP) 
+              TB3                     LD!   R12,(R0,R11) 
+              TB3                     MOV!  R5,#0 
+                                      BRA   L25(0) 
+  L23                                 ADD!  R21,R18,#8 
+                                      ADD!  R20,R18,#4 
+                                      CLR!  R18 
+  return4                             LD!   R15,(R0,R21) 
+                                      LD!   R14,(R0,R20) 
+                                      CLR!  R18 
+                                      LD!   RA,0(SP) 
+                                      EQ    B1,R5,#0 
+                                      MOV!  R5,R17 
+                                      ADD!  R16,R14,#8 
+                                      EQ!   B2,R14,#0 
+                                      MOV!  R7,R14 
+              FB1                     MOV!  R5,#1 
+              FB1                     MOV   R17,#1 
+                                      LD!   R40,(R0,R16) 
+  
+        L25         
+        L22         
+              TB2                     MOV   PC,RA(9) 
+              TB2                     LD    R17,8(SP) 
+              TB2                     LD    R18,12(SP) 
+              TB2                     LD    R19,128(SP) 
+              TB2                     LD    R20,132(SP) 
+              TB2                     LD    R21,136(SP) 
+              TB2                     ADD   SP,SP,#140 
+              FB2                     MOV!  R5,#0 
+              FB2                     LTS   B1,R40,R15 
+              FB2                     MOV!  R6,R40 
+                                      BT    B1,L27(23) 
+              TB1                     MOV   R5,R7 
+              FB1                     LD    R21,136(SP) 
+              FB1                     LD    R20,132(SP) 
+              FB1                     LD    R19,128(SP) 
+              FB1                     LD    R18,12(SP) 
+              FB1                     LD    R17,8(SP) 
+              FB1                     ADD   SP,SP,#140 
+              TB1                     BRA   ~Checktree1(18) 
+              TB1                     MOV   RA,#return5 
+              TB1                     SUB   SP,SP,#140 
+              TB1                     ADD!  R11,R5,#8 
+              TB1                     ST    136(SP),R21 
+              TB1                     ST    132(SP),R20 
+              TB1                     ST    128(SP),R19 
+              TB1                     ST    0(SP),RA 
+              TB1                     ST    8(SP),R17 
+              TB1                     ST    12(SP),R18 
+              TB1                     LD    R7,(R0,R5) 
+              TB1                     MOV   R18,R5 
+              TB1                     MOV   R17,#1 
+              TB1                     LD!   RA,0(SP) 
+              TB1                     LD!   R12,(R0,R11) 
+              TB1                     MOV!  R5,#0 
+  
+                                      MOV   PC,RA(0) 
+  L27                                 ADD!  R21,R18,#8 
+                                      ADD!  R20,R18,#4 
+                                      CLR!  R18 
+  return5                             LD!   RA,0(SP) 
+                                      EQ    B1,R5,#0 
+                                      MOV!  R5,R18 
+                                      NEG!  R13,R17 
+                                      OR!   R13,R13,R17 
+  
+              TB1                     MOV   PC,RA(15) 
+              TB1                     LD    R21,136(SP) 
+              TB1                     LD    R20,132(SP) 
+              TB1                     LD    R19,128(SP) 
+              TB1                     LD    R17,8(SP) 
+              TB1                     LD    R18,12(SP) 
+              TB1                     ADD   SP,SP,#140 
+              FB1                     MOV   PC,RA(8) 
+              FB1                     LD    R21,136(SP) 
+              FB1                     LD    R20,132(SP) 
+              FB1                     LD    R19,128(SP) 
+              FB1                     LD    R17,8(SP) 
+              FB1                     LSR   R18,R13,#31 
+              FB1                     MOV   R5,R18 
+              FB1                     LD    R18,12(SP) 
+              FB1                     ADD   SP,SP,#140 
+
+  _Trees                              SUB   SP,SP,#132 
+                                      ST    128(SP),R19 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+  ~Trees1                             BSR   RA,~tInitarr1 (17) 
+                                      SUB   SP,SP,#136 
+                                      MOV   R13,#74755 
+                                      ST    132(SP),R20 
+                                      ST    128(SP),R19 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    _seed,R13 
+                                      ST    _biggest,R0 
+                                      ST    _littlest,R0 
+                                      MOV   R18,#1 
+                                      LD    R13,_seed 
+                                      MOV!  R19,#4148 
+                                      MOV   R17,#_sortlist+4 
+                                      LD!   RA,0(SP) 
+                                      ADD!  R18,R18,#1 
+                                      ADD!  R20,R19,#4 
+                                      BSR   RA,_malloc (1) 
+                                      MOV   R5,#12 
+                                      BSR   RA,_Insert (13) 
+                                      ST    _tree,R5 
+                                      ST    (R0,R5),R0 
+                                      ADD   R11,R5,#4 
+                                      ADD   R12,R5,#8 
+                                      MOV   R18,#2 
+                                      MOV   R17,#_sortlist+8 
+                                      ST    (R0,R11),R0 
+                                      LD    R7,_sortlist+4 
+                                      ADD   R19,R17,#4 
+                                      ADD   R18,R18,#1 
+                                      ST    (R0,R12),R7 
+                                      LD    R5,(R0,R17) 
+                                      LD    R6,_tree 
+  Sx15        
+        Sx14        
+        return6                             LES   B1,R18,#500 
+                                      LD!   R5,(R0,R19) 
+                                      LD!   R6,_tree 
+                                      ADD!  R19,R19,#4 
+                                      ADD!  R18,R18,#1 
+                                      BT    B1,Sx15(28) 
+              TB1                     BRA   ~Insert2(15) 
+              TB1                     MOV   RA,#return6 
+              TB1                     SUB   SP,SP,#128 
+              TB1                     MOV   R7,R5 
+              TB1                     ADD   R13,R6,#8 
+              TB1                     ADD!  R11,R6,#4 
+              TB1                     MOV   R5,R6 
+              FB1                     BSR   RA,~Checktree2 (20) 
+              FB1                     LD    R5,_tree 
+              TB1                     ST    0(SP),RA 
+              TB1                     LD    R13,(R0,R13) 
+              TB1                     LD!   RA,0(SP) 
+              TB1                     LD!   R6,(R0,R5) 
+              TB1                     LD!   R12,(R0,R11) 
+              FB1                     SUB   SP,SP,#140 
+              FB1                     ADD!  R11,R5,#8 
+              FB1                     ST    136(SP),R21 
+              FB1                     ST    132(SP),R20 
+              FB1                     ST    128(SP),R19 
+              FB1                     ST    0(SP),RA 
+              FB1                     ST    8(SP),R17 
+              FB1                     ST    12(SP),R18 
+              FB1                     LD    R7,(R0,R5) 
+              FB1                     MOV   R18,R5 
+              FB1                     MOV   R17,#1 
+              FB1                     LD!   RA,0(SP) 
+              FB1                     LD!   R12,(R0,R11) 
+              FB1                     MOV!  R5,#0 
+                                      NE    B1,R5,#0 
+                                      LD!   RA,0(SP) 
+                                      BT    B1,Sx16(6) 
+              TB1                     LD    R17,8(SP) 
+              TB1                     LD    R18,12(SP) 
+              TB1                     LD    R19,128(SP) 
+              TB1                     ADD   SP,SP,#132 
+              FB1                     BSR   RA,_printf (1) 
+              FB1                     MOV   R5,#Lc0 
+                                      LD    R19,128(SP) 
+                                      LD    R18,12(SP) 
+                                      LD    R17,8(SP) 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#132 
+                                      MOV   PC,RA(0) 
+  Sx16                                MOV   PC,RA(0) 
+
+  _main                               SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+  ~main1                              BSR   RA,~Trees1 (5) 
+                                      SUB   SP,SP,#132 
+                                      ST    128(SP),R19 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+ Lc0: 	.ascii "Error in Tree.\12\0"
+	.comm _tree,4,
+	.comm _seed,4,
+	.comm _sortlist,2004,
+	.comm _biggest,4,
+	.comm _littlest,4,
+

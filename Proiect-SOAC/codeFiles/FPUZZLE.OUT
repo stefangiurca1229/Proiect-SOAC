@@ -1,0 +1,1472 @@
+
+                                      BSR   RA,~main1 (4) 
+                                      MOV   GP,#4096 
+                                      MOV   SP,#4096 
+                                      SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+                                      TRAP  0 
+
+  _Fit                                SUB   SP,SP,#128 
+                                      CLR   R7 
+                                      ASL   R13,R5,#2 
+                                      MOV   R10,#_piecemax 
+                                      ASL!  R16,R5,#11 
+                                      MOV!  R9,#_puzzl 
+                                      MOV!  R5,#1 
+                                      ADD   R13,R13,R10 
+                                      MOV!  R10,#_p 
+                                      ADD!  R11,R7,#1 
+                                      ADD!  R12,R6,R7 
+                                      LD    R8,(R0,R13) 
+                                      ADD!  R40,R16,R10 
+                                      ASL!  R14,R12,#2 
+                                      ADD!  R41,R11,#1 
+                                      ADD!  R12,R6,R11 
+  ~Fit1                               LD!   R13,(R0,R40) 
+                                      ADD!  R42,R40,#4 
+                                      ADD!  R43,R14,R9 
+                                      ASL!  R14,R12,#2 
+                                      GTS   B1,R7,R8 
+                                      LES!  B2,R11,R8 
+                                      LD!   R15,(R0,R42) 
+                                      ADD!  R44,R42,#4 
+                                      LD!   R45,(R0,R43) 
+                                      MOV!  R7,R41 
+  
+              TB1                     MOV   PC,RA(3) 
+              TB1                     ADD   SP,SP,#128 
+              FB1                     EQ    B3,R13,#0 
+              FB1                     CLR!  R5 
+  L7                                  BT    B3,L4(10) 
+              TB3                     ADD!  R13,R14,R9 
+              TB3                     ADD!  R12,R6,R41 
+              TB3                     MOV!  R7,R41 
+              FB3                     ADD!  R12,R6,R7 
+              FB3                     EQ    B1,R45,#0 
+              FB3                     ADD!  R13,R14,R9 
+              TB3                     LD!   R45,(R0,R13) 
+              TB3                     ASL!  R14,R12,#2 
+              FB3                     ASL!  R14,R12,#2 
+              FB3                     LD!   R45,(R0,R13) 
+                                      BT    B1,L4(1) 
+              FB1                     ADD!  SP,SP,#128 
+  
+                                      MOV   PC,RA(0) 
+  L4                                  MOV   B1,B2 
+                                      BT    B2,L7(9) 
+              TB2                     EQ    B3,R15,#0 
+              TB2                     LD!   R15,(R0,R44) 
+              TB2                     ADD!  R44,R44,#4 
+              FB2                     MOV   PC,RA(5) 
+              FB2                     ADD!  SP,SP,#128 
+              FB2                     MOV!  R5,#1 
+              TB1                     LES!  B2,R41,R8 
+              TB1                     ADD!  R41,R7,#1 
+              TB1                     MOV!  R7,R41 
+
+  _Place                              SUB   SP,SP,#128 
+                                      MOV   R8,R5 
+                                      CLR   R5 
+                                      MOV   R11,#_piecemax 
+                                      GTS!  B4,R6,#511 
+                                      ASL!  R43,R6,#2 
+                                      ADD!  R40,R6,#1 
+                                      MOV!  R10,#_puzzl 
+                                      ASL   R13,R8,#2 
+                                      ASL!  R44,R8,#2 
+                                      ADD!  R45,R43,#4504 
+                                      LES!  B5,R40,#511 
+                                      ADD!  R41,R40,#1 
+                                      ASL!  R46,R8,#11 
+                                      ADD!  R12,R5,#1 
+                                      ADD!  R14,R6,R5 
+  ~Place2                             ADD   R7,R13,R11 
+                                      MOV!  R11,#_class 
+                                      ADD!  R47,R45,#4 
+                                      ADD!  R48,R46,#6552 
+                                      ASL!  R15,R14,#2 
+                                      ADD!  R49,R12,#1 
+                                      ADD!  R14,R6,R12 
+                                      ADD!  R50,R44,#4400 
+  ~Place1                             LD    R13,(R0,R7) 
+                                      ADD!  R51,R44,R11 
+                                      MOV!  R11,#_piececount 
+                                      ADD!  R52,R47,#4 
+                                      MOV!  R9,R7 
+                                      LD!   R53,(R0,R48) 
+                                      ADD!  R7,R48,#4 
+                                      ADD!  R54,R15,R10 
+                                      ASL!  R15,R14,#2 
+                                      LD!   R55,(R0,R51) 
+                                      ADD!  R56,R52,#4 
+                                      ADD!  R57,R7,#4 
+                                      GTS   B1,R5,R13 
+                                      MOV!  R5,R12 
+                                      EQ!   B2,R53,#0 
+                                      BT    B1,L11(10) 
+              TB1                     ASL   R58,R55,#2 
+              TB1                     MOV   R5,R6 
+              FB1                     MOV!  R11,#1 
+              TB1                     ADD   R59,R58,R11 
+              FB1 FB2                 ST!   (R0,R54),R11 
+              FB1                     LD!   R55,(R0,R50) 
+              FB1                     LD!   R13,(R0,R9) 
+              FB1                     LD!   R16,(R0,R7) 
+              FB1                     MOV!  R11,#1 
+              TB1                     LD    R13,(R0,R59) 
+  L14                                 LES   B1,R5,R13 
+                                      EQ!   B2,R16,#0 
+                                      ADD!  R13,R15,R10 
+                                      ADD!  R14,R6,R49 
+                                      ASL!  R58,R55,#2 
+                                      MOV!  R5,R49 
+                                      BT    B1,L14(11) 
+              TB1 FB2                 ST!   (R0,R13),R11 
+              TB1                     LD!   R13,(R0,R9) 
+              TB1                     LD!   R16,(R0,R57) 
+              TB1                     ADD!  R57,R57,#4 
+              TB1                     ADD!  R49,R5,#1 
+              TB1                     MOV!  R11,#1 
+              TB1                     ASL!  R15,R14,#2 
+              FB1                     ADD!  R59,R58,#4384 
+              FB1                     MOV!  R5,R6 
+              TB1                     LD!   R55,(R0,R50) 
+              FB1                     LD    R13,(R0,R59) 
+  L11                                 ADD   R13,R13,#-1 
+                                      ST    (R0,R59),R13 
+                                      LD!   R13,(R0,R45) 
+                                      LD!   R60,(R0,R47) 
+                                      LD!   R42,(R0,R52) 
+  
+              TB4                     MOV   PC,RA(3) 
+              TB4                     CLR   R5 
+              TB4                     ADD   SP,SP,#128 
+              FB4                     EQ    B1,R13,#0 
+  L19                                 MOV   B3,B1 
+  
+              TB1                     MOV   PC,RA(8) 
+              TB1                     ADD!  SP,SP,#128 
+              FB1                     MOV!  R5,R40 
+              FB1                     MOV!  R40,R41 
+              FB3                     EQ!   B1,R60,#0 
+              FB3                     MOV!  R60,R42 
+              FB3                     ADD!  R41,R40,#1 
+              FB3                     LD!   R42,(R0,R56) 
+              FB3                     ADD!  R56,R56,#4 
+                                      MOV   B3,B5 
+                                      BT    B5,L19(4) 
+              FB5                     MOV   PC,RA(3) 
+              FB5                     ADD!  SP,SP,#128 
+              FB5                     CLR!  R5 
+              TB3                     LES!  B5,R40,#511 
+
+  _Remove                             SUB   SP,SP,#128 
+                                      CLR   R7 
+                                      ASL   R13,R5,#2 
+                                      MOV   R11,#_piecemax 
+                                      ASL!  R40,R5,#2 
+                                      ASL!  R41,R5,#11 
+                                      MOV!  R10,#_puzzl 
+                                      ADD   R8,R13,R11 
+                                      MOV!  R11,#_class 
+                                      ADD!  R42,R41,#6552 
+                                      ADD!  R12,R7,#1 
+                                      ADD!  R14,R6,R7 
+                                      ADD!  R43,R40,#4400 
+                                      LD    R13,(R0,R8) 
+                                      ADD!  R44,R40,R11 
+                                      MOV!  R11,#_piececount 
+                                      MOV!  R9,R8 
+                                      LD!   R45,(R0,R42) 
+                                      ADD!  R8,R42,#4 
+                                      ASL!  R15,R14,#2 
+                                      ADD!  R46,R12,#1 
+                                      ADD!  R14,R6,R12 
+  ~Remove1                            LD!   R47,(R0,R44) 
+                                      ADD!  R48,R15,R10 
+                                      ADD!  R49,R8,#4 
+                                      ASL!  R15,R14,#2 
+                                      GTS   B1,R7,R13 
+                                      MOV!  R7,R12 
+                                      EQ!   B2,R45,#0 
+  
+              TB1                     MOV   PC,RA(9) 
+              TB1                     ASL   R50,R47,#2 
+              TB1                     ADD   SP,SP,#128 
+              FB1 FB2                 ST!   (R0,R48),R0 
+              FB1                     MOV!  R11,#_class 
+              FB1                     LD!   R47,(R0,R43) 
+              FB1                     LD!   R13,(R0,R9) 
+              FB1                     LD!   R16,(R0,R8) 
+              TB1                     ADD   R51,R50,R11 
+              TB1                     MOV   R5,R51 
+  L26                                 LES   B1,R7,R13 
+                                      EQ!   B2,R16,#0 
+                                      ADD!  R13,R15,R10 
+                                      ADD!  R14,R6,R46 
+                                      ASL!  R50,R47,#2 
+                                      MOV!  R7,R46 
+                                      BT    B1,L26(11) 
+              TB1 FB2                 ST!   (R0,R13),R0 
+              TB1                     LD!   R13,(R0,R9) 
+              TB1                     LD!   R16,(R0,R49) 
+              TB1                     ADD!  R49,R49,#4 
+              TB1                     ADD!  R46,R7,#1 
+              TB1                     ASL!  R15,R14,#2 
+              FB1                     ADD!  R51,R50,#4384 
+              FB1                     ADD!  SP,SP,#128 
+              TB1                     LD!   R47,(R0,R43) 
+              FB1                     LD    R13,(R0,R51) 
+              FB1                     MOV   R5,R51 
+                                      MOV   PC,RA(2) 
+                                      ADD   R13,R13,#1 
+                                      ST    (R0,R5),R13 
+
+  _Trial                              SUB   SP,SP,#144 
+                                      MOV   R7,#_piececount 
+                                      MOV!  R6,R5 
+                                      ST    140(SP),R24 
+                                      ST    136(SP),R23 
+                                      ST    132(SP),R22 
+                                      ST    128(SP),R21 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      MOV   R20,R5 
+                                      LD    R13,_kount 
+                                      CLR   R18 
+                                      MOV   R19,#_class 
+  ~Trial2                             ADD!  R24,R19,#4 
+                                      ADD!  R21,R18,#1 
+                                      MOV!  R5,R18 
+  ~Trial1                             ADD   R13,R13,#1 
+                                      ST    _kount,R13 
+                                      LD    R13,(R0,R19) 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R7 
+  L36                                 LD    R13,(R0,R13) 
+                                      ADD!  R22,R24,#4 
+                                      ADD!  R23,R21,#1 
+                                      EQ    B1,R13,#0 
+                                      BT    B1,L30(17) 
+              FB1                     BSR   RA,~Fit1 (16) 
+              FB1                     SUB   SP,SP,#128 
+              FB1                     CLR   R7 
+              FB1                     ASL   R13,R5,#2 
+              FB1                     MOV   R10,#_piecemax 
+              FB1                     ASL!  R16,R5,#11 
+              FB1                     MOV!  R9,#_puzzl 
+              FB1                     MOV!  R5,#1 
+              FB1                     ADD   R13,R13,R10 
+              FB1                     MOV!  R10,#_p 
+              FB1                     ADD!  R11,R7,#1 
+              FB1                     ADD!  R12,R6,R7 
+              FB1                     LD    R8,(R0,R13) 
+              FB1                     ADD!  R40,R16,R10 
+              FB1                     ASL!  R14,R12,#2 
+              FB1                     ADD!  R41,R11,#1 
+              FB1                     ADD!  R12,R6,R11 
+                                      EQ    B1,R5,#0 
+                                      MOV!  R5,R18 
+                                      MOV!  R6,R20 
+                                      BT    B1,L30(25) 
+              FB1                     BSR   RA,~Place1 (24) 
+              FB1                     SUB   SP,SP,#128 
+              FB1                     MOV   R8,R5 
+              FB1                     CLR   R5 
+              FB1                     MOV   R11,#_piecemax 
+              FB1                     GTS!  B4,R6,#511 
+              FB1                     ASL!  R43,R6,#2 
+              FB1                     ADD!  R40,R6,#1 
+              FB1                     MOV!  R10,#_puzzl 
+              FB1                     ASL   R13,R8,#2 
+              FB1                     ASL!  R44,R8,#2 
+              FB1                     ADD!  R45,R43,#4504 
+              FB1                     LES!  B5,R40,#511 
+              FB1                     ADD!  R41,R40,#1 
+              FB1                     ASL!  R46,R8,#11 
+              FB1                     ADD!  R12,R5,#1 
+              FB1                     ADD!  R14,R6,R5 
+              FB1                     ADD   R7,R13,R11 
+              FB1                     MOV!  R11,#_class 
+              FB1                     ADD!  R47,R45,#4 
+              FB1                     ADD!  R48,R46,#6552 
+              FB1                     ASL!  R15,R14,#2 
+              FB1                     ADD!  R49,R12,#1 
+              FB1                     ADD!  R14,R6,R12 
+              FB1                     ADD!  R50,R44,#4400 
+                                      MOV   R17,R5 
+                                      BSR   RA,~Trial1 (19) 
+                                      SUB   SP,SP,#144 
+                                      MOV   R7,#_piececount 
+                                      MOV!  R6,R5 
+                                      ST    140(SP),R24 
+                                      ST    136(SP),R23 
+                                      ST    132(SP),R22 
+                                      ST    128(SP),R21 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      MOV   R20,R5 
+                                      LD    R13,_kount 
+                                      CLR   R18 
+                                      MOV   R19,#_class 
+                                      ADD!  R24,R19,#4 
+                                      ADD!  R21,R18,#1 
+                                      MOV!  R5,R18 
+                                      LD!   RA,0(SP) 
+                                      NE    B1,R5,#0 
+                                      NE!   B2,R17,#0 
+                                      MOV!  R5,R18 
+                                      MOV!  R6,R20 
+  
+              TB1                     LD    R24,140(SP) 
+              TB1                     LD    R23,136(SP) 
+              TB1                     LD    R22,132(SP) 
+              TB1                     LD    R21,128(SP) 
+              TB1                     LD    R20,20(SP) 
+              TB1                     LD    R19,16(SP) 
+              TB1                     LD    R18,12(SP) 
+              TB1                     LD    R17,8(SP) 
+              TB1                     ADD   SP,SP,#144 
+              TB1                     MOV   R5,#1 
+              TB1                     MOV   PC,RA(0) 
+                                      BT    B2,L30(34) 
+              TB2                     BRA   ~Remove1(33) 
+              TB2                     MOV   RA,#return1 
+              TB2                     SUB   SP,SP,#128 
+              TB2                     CLR   R7 
+              TB2                     ASL   R13,R5,#2 
+              TB2                     MOV   R11,#_piecemax 
+              TB2                     ASL!  R40,R5,#2 
+              TB2                     ASL!  R41,R5,#11 
+              TB2                     MOV!  R10,#_puzzl 
+              FB2                     MOV!  R5,#1 
+              FB2                     LD    R24,140(SP) 
+              FB2                     LD    R23,136(SP) 
+              FB2                     LD    R22,132(SP) 
+              FB2                     LD    R21,128(SP) 
+              FB2                     LD    R20,20(SP) 
+              FB2                     LD    R19,16(SP) 
+              FB2                     LD    R18,12(SP) 
+              FB2                     LD    R17,8(SP) 
+              FB2                     ADD   SP,SP,#144 
+              TB2                     ADD   R8,R13,R11 
+              TB2                     MOV!  R11,#_class 
+              TB2                     ADD!  R42,R41,#6552 
+              TB2                     ADD!  R12,R7,#1 
+              TB2                     ADD!  R14,R6,R7 
+              TB2                     ADD!  R43,R40,#4400 
+              TB2                     LD    R13,(R0,R8) 
+              TB2                     ADD!  R44,R40,R11 
+              TB2                     MOV!  R11,#_piececount 
+              TB2                     MOV!  R9,R8 
+              TB2                     LD!   R45,(R0,R42) 
+              TB2                     ADD!  R8,R42,#4 
+              TB2                     ASL!  R15,R14,#2 
+              TB2                     ADD!  R46,R12,#1 
+              TB2                     ADD!  R14,R6,R12 
+  
+                                      MOV   PC,RA(0) 
+  L30         
+        L33         
+        return1                             LES   B1,R21,#12 
+                                      LD!   R13,(R0,R24) 
+                                      MOV!  R7,#_piececount 
+                                      MOV!  R18,R21 
+                                      MOV!  R24,R22 
+                                      MOV!  R21,R23 
+                                      MOV!  R6,R20 
+                                      BT    B1,L36(15) 
+              TB1                     MOV!  R5,R18 
+              FB1                     CLR   R5 
+              FB1                     LD    RA,0(SP) 
+              FB1                     LD    R17,8(SP) 
+              FB1                     LD    R18,12(SP) 
+              FB1                     LD    R19,16(SP) 
+              FB1                     LD    R20,20(SP) 
+              FB1                     LD    R21,128(SP) 
+              FB1                     LD    R22,132(SP) 
+              FB1                     LD    R23,136(SP) 
+              FB1                     LD    R24,140(SP) 
+              FB1                     ADD   SP,SP,#144 
+              TB1                     ASL   R13,R13,#2 
+              TB1                     ADD   R13,R13,R7 
+              FB1                     MOV   PC,RA(0) 
+
+  _Puzzle                             SUB   SP,SP,#128 
+                                      MOV   R5,#511 
+                                      MOV   R10,#1 
+                                      MOV   R11,#6544 
+                                      MOV   R13,#_puzzl+2044 
+                                      MOV!  R8,#1 
+                                      MOV!  R9,#_puzzl 
+                                      MOV!  R7,#9 
+                                      MOV!  R6,#2 
+                                      MOV!  R40,#1 
+                                      MOV!  R42,#1 
+                                      MOV!  R44,#1 
+                                      MOV!  R46,#1 
+                                      MOV!  R48,#1 
+                                      MOV!  R50,#1 
+                                      MOV!  R52,#1 
+                                      MOV!  R54,#1 
+                                      MOV!  R56,#1 
+                                      MOV!  R58,#1 
+                                      MOV!  R60,#1 
+                                      MOV!  R62,#1 
+                                      ST    0(SP),RA 
+                                      ADD   R5,R5,#-1 
+                                      ASL!  R41,R7,#3 
+                                      ADD!  R15,R8,#1 
+                                      LES!  B5,R6,#5 
+                                      ADD!  R7,R7,#8 
+                                      LES!  B6,R40,#3 
+                                      LES!  B7,R42,#1 
+                                      LES!  B8,R44,#0 
+                                      LES!  B9,R46,#1 
+                                      ST    (R0,R13),R10 
+                                      MOV   R13,R11 
+                                      MOV!  R10,#1 
+                                      LES!  B11,R48,#3 
+                                      GES   B1,R5,#0 
+                                      ADD!  R43,R41,R8 
+                                      LES!  B10,R15,#5 
+  L42         
+        ~Puzzle1                            MOV   B2,B1 
+                                      BT    B1,L42(20) 
+              TB1                     ST    (R0,R13),R10 
+              TB1                     ADD   R11,R13,#-4 
+              TB1                     ADD   R5,R5,#-1 
+              TB1                     MOV!  R10,#1 
+              FB1                     MOV   R5,#1 
+              FB1                     ASL   R13,R43,#2 
+              FB1                     MOV!  R10,#1 
+              FB1                     MOV!  R11,#1 
+              TB2                     MOV   R13,R11 
+              TB2                     GES   B1,R5,#0 
+              TB2                     GES   B3,R5,#0 
+              FB2                     ADD   R5,R5,#1 
+              FB2                     ADD   R13,R13,R9 
+              TB2 TB3                 ST    (R0,R13),R10 
+              TB2 TB3                 ADD   R11,R13,#-4 
+              TB2 TB3                 ADD   R5,R5,#-1 
+              TB2 TB3                 MOV!  R10,#1 
+              FB2                     LES   B1,R5,#5 
+              TB2 TB3                 MOV   R13,R11 
+              TB2 TB3                 GES   B1,R5,#0 
+  L52         
+        L53         
+        L54                                 ST    (R0,R13),R0 
+                                      ASL!  R13,R7,#3 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L52(12) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     MOV!  R5,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#5 
+              FB2                     ASL!  R13,R7,#3 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R7,R7,#8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B1,R5,#5 
+                                      MOV   B2,B5 
+                                      BT    B5,L52(15) 
+              TB5                     ASL   R13,R13,#2 
+              FB5                     MOV!  R5,#1 
+              FB5                     MOV!  R7,#9 
+              FB5                     ADD!  R16,R15,#1 
+              FB5                     MOV!  R8,R15 
+              FB5                     MOV!  R6,#2 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B5,R6,#5 
+              FB2                     ASL!  R13,R7,#3 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R7,R7,#8 
+              FB2                     MOV!  R15,R16 
+              FB2                     LES!  B5,R6,#5 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B1,R5,#5 
+                                      MOV   B2,B10 
+                                      BT    B10,L52(18) 
+              TB10                     ASL   R13,R13,#2 
+              FB10                     CLR   R8 
+              FB10                     MOV   R5,#511 
+              FB10                     MOV   R13,#8596 
+              FB10                     MOV!  R6,#8600 
+              FB10                     MOV!  R9,#_p 
+              FB10                     MOV!  R7,#8 
+              FB10                     LES!  B5,R50,#0 
+              FB10                     ADD!  R15,R11,#1 
+              FB10                     MOV!  R16,#8 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B10,R15,#5 
+              FB2                     ST    (R0,R13),R0 
+              FB2                     ADD!  R8,R8,#1 
+              FB2                     ADD   R5,R5,#-1 
+              FB2                     ADD   R13,R13,#-4 
+              FB2                     GES   B1,R5,#0 
+              FB2                     LES!  B3,R8,#12 
+  L61         
+        L62                                 MOV   B2,B1 
+                                      BT    B1,L61(17) 
+              TB1                     ST    (R0,R13),R0 
+              TB1                     ADD   R13,R13,#-4 
+              TB1                     ADD   R5,R5,#-1 
+              FB1                     MOV!  R5,#511 
+              FB1                     ADD!  R13,R6,#2044 
+              FB1                     ADD!  R6,R6,#2048 
+              FB1                     ADD!  R8,R8,#1 
+              TB2                     GES   B1,R5,#0 
+              TB2                     GES   B4,R5,#0 
+              FB2 TB3                 ST!   (R0,R13),R0 
+              FB2                     ADD!  R5,R5,#-1 
+              FB2                     ADD!  R13,R13,#-4 
+              TB2 TB4                 ST    (R0,R13),R0 
+              TB2 TB4                 ADD   R13,R13,#-4 
+              TB2 TB4                 ADD   R5,R5,#-1 
+              FB2                     GES!  B1,R5,#0 
+              TB2 TB4                 GES   B1,R5,#0 
+                                      MOV   B2,B3 
+                                      BT    B3,L61(11) 
+              FB3                     CLR   R8 
+              FB3                     CLR   R6 
+              FB3                     MOV   R5,#1 
+              FB3                     LES!  B4,R52,#2 
+              FB3                     LES!  B10,R62,#0 
+              TB2                     LES!  B3,R8,#12 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#0 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L72         
+        L73         
+        L74                                 ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L72(13) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#0 
+                                      MOV   B2,B3 
+                                      BT    B3,L72(15) 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     ADD!  R41,R40,#1 
+              FB3                     MOV!  R8,R40 
+              TB2                     LES!  B3,R6,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R40,R41 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#0 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      MOV   B2,B6 
+                                      BT    B6,L72(18) 
+              TB6                     ASL   R13,R13,#2 
+              FB6                     ST    _class,R0 
+              FB6                     MOV   R10,#11 
+              FB6                     CLR   R8 
+              FB6                     MOV   R9,#_p+2048 
+              FB6                     CLR   R6 
+              FB6                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B6,R40,#3 
+              FB2                     ST    _piecemax,R10 
+              FB2                     MOV   R10,#1 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#3 
+              FB2                     LES!  B6,R54,#0 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L84         
+        L85         
+        L86                                 ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L84(13) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#3 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#3 
+                                      MOV   B2,B3 
+                                      BT    B3,L84(15) 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     ADD!  R43,R42,#1 
+              FB3                     MOV!  R8,R42 
+              TB2                     LES!  B3,R6,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R42,R43 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#3 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      MOV   B2,B7 
+                                      BT    B7,L84(18) 
+              TB7                     ASL   R13,R13,#2 
+              FB7                     ST    _class+4,R0 
+              FB7                     MOV   R10,#193 
+              FB7                     CLR   R8 
+              FB7                     MOV   R9,#_p+4096 
+              FB7                     CLR   R6 
+              FB7                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B7,R42,#1 
+              FB2                     ST    _piecemax+4,R10 
+              FB2                     MOV   R10,#1 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#1 
+              FB2                     LES!  B7,R56,#0 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#3 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L96         
+        L97         
+        L98                                 ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L96(13) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#1 
+                                      MOV   B2,B3 
+                                      BT    B3,L96(15) 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     ADD!  R45,R44,#1 
+              FB3                     MOV!  R8,R44 
+              TB2                     LES!  B3,R6,#3 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R44,R45 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#3 
+                                      MOV   B2,B8 
+                                      BT    B8,L96(18) 
+              TB8                     ASL   R13,R13,#2 
+              FB8                     ST    _class+8,R0 
+              FB8                     MOV   R10,#88 
+              FB8                     CLR   R8 
+              FB8                     MOV   R9,#_p+6144 
+              FB8                     CLR   R6 
+              FB8                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B8,R44,#0 
+              FB2                     ST    _piecemax+8,R10 
+              FB2                     MOV   R10,#1 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#0 
+              FB2                     LES!  B8,R58,#1 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#3 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L108        
+        L109        
+        L110                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L108(13) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#0 
+                                      MOV   B2,B3 
+                                      BT    B3,L108(15) 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     ADD!  R47,R46,#1 
+              FB3                     MOV!  R8,R46 
+              TB2                     LES!  B3,R6,#3 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R46,R47 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#0 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#3 
+                                      MOV   B2,B9 
+                                      BT    B9,L108(18) 
+              TB9                     ASL   R13,R13,#2 
+              FB9                     ST    _class+12,R0 
+              FB9                     MOV   R10,#25 
+              FB9                     CLR   R8 
+              FB9                     MOV   R9,#_p+8192 
+              FB9                     CLR   R6 
+              FB9                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B9,R46,#1 
+              FB2                     ST    _piecemax+12,R10 
+              FB2                     MOV   R10,#1 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#1 
+              FB2                     LES!  B9,R60,#1 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L120        
+        L121        
+        L122                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L120(13) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#1 
+                                      MOV   B2,B3 
+                                      BT    B3,L120(15) 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     ADD!  R49,R48,#1 
+              FB3                     MOV!  R8,R48 
+              TB2                     LES!  B3,R6,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R48,R49 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      MOV   B2,B11 
+                                      BT    B11,L120(17) 
+              TB11                     ASL   R13,R13,#2 
+              FB11                     ST    _class+16,R0 
+              FB11                     MOV   R10,#67 
+              FB11                     CLR   R8 
+              FB11                     MOV   R9,#_p+10240 
+              FB11                     CLR   R6 
+              FB11                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B11,R48,#3 
+              FB2                     ST    _piecemax+16,R10 
+              FB2                     MOV   R10,#1 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#3 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L132        
+        L133        
+        L134                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L132(13) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#3 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#3 
+                                      MOV   B2,B3 
+                                      BT    B3,L132(15) 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     ADD!  R51,R50,#1 
+              FB3                     MOV!  R8,R50 
+              TB2                     LES!  B3,R6,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R50,R51 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#3 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      MOV   B2,B5 
+                                      BT    B5,L132(18) 
+              TB5                     ASL   R13,R13,#2 
+              FB5                     ST    _class+20,R0 
+              FB5                     MOV   R10,#200 
+              FB5                     CLR   R8 
+              FB5                     MOV   R9,#_p+12288 
+              FB5                     CLR   R6 
+              FB5                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B5,R50,#0 
+              FB2                     ST    _piecemax+20,R10 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     MOV   R10,#1 
+              FB2                     LES   B1,R5,#0 
+              FB2                     LES!  B5,R11,#1 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L144        
+        L145        
+        L146                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L144(13) 
+              TB1                     MOV   R10,#1 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#0 
+                                      MOV   B2,B3 
+                                      BT    B3,L144(15) 
+              TB3                     MOV   R10,#1 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     ADD!  R53,R52,#1 
+              FB3                     MOV!  R8,R52 
+              TB2                     LES!  B3,R6,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R52,R53 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#0 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      MOV   B2,B4 
+                                      BT    B4,L144(18) 
+              TB4                     MOV   R10,#1 
+              TB4                     ASL   R13,R13,#2 
+              FB4                     ST    _class+24,R10 
+              FB4                     MOV   R10,#2 
+              FB4                     CLR   R8 
+              FB4                     MOV   R9,#_p+14336 
+              FB4                     CLR   R6 
+              FB4                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B4,R52,#2 
+              FB2                     ST    _piecemax+24,R10 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     MOV   R10,#1 
+              FB2                     LES   B1,R5,#0 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#2 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L156        
+        L157        
+        L158                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L156(13) 
+              TB1                     MOV   R10,#1 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#0 
+                                      MOV   B2,B3 
+                                      BT    B3,L156(15) 
+              TB3                     MOV   R10,#1 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     ADD!  R55,R54,#1 
+              FB3                     MOV!  R8,R54 
+              TB2                     LES!  B3,R6,#2 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R54,R55 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#0 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#2 
+                                      MOV   B2,B6 
+                                      BT    B6,L156(18) 
+              TB6                     MOV   R10,#1 
+              TB6                     ASL   R13,R13,#2 
+              FB6                     ST    _class+28,R10 
+              FB6                     MOV   R10,#16 
+              FB6                     CLR   R8 
+              FB6                     MOV   R9,#_p+16384 
+              FB6                     CLR   R6 
+              FB6                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B6,R54,#0 
+              FB2                     ST    _piecemax+28,R10 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     MOV   R10,#1 
+              FB2                     LES   B1,R5,#2 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L168        
+        L169        
+        L170                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L168(13) 
+              TB1                     MOV   R10,#1 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#2 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#2 
+                                      MOV   B2,B3 
+                                      BT    B3,L168(15) 
+              TB3                     MOV   R10,#1 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     ADD!  R57,R56,#1 
+              FB3                     MOV!  R8,R56 
+              TB2                     LES!  B3,R6,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R56,R57 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#2 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      MOV   B2,B7 
+                                      BT    B7,L168(18) 
+              TB7                     MOV   R10,#1 
+              TB7                     ASL   R13,R13,#2 
+              FB7                     ST    _class+32,R10 
+              FB7                     MOV   R10,#128 
+              FB7                     CLR   R8 
+              FB7                     MOV   R9,#_p+18432 
+              FB7                     CLR   R6 
+              FB7                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B7,R56,#0 
+              FB2                     ST    _piecemax+32,R10 
+              FB2                     MOV   R10,#1 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#0 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L180        
+        L181        
+        L182                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L180(13) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#0 
+                                      MOV   B2,B3 
+                                      BT    B3,L180(15) 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     ADD!  R59,R58,#1 
+              FB3                     MOV!  R8,R58 
+              TB2                     LES!  B3,R6,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R58,R59 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#0 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      MOV   B2,B8 
+                                      BT    B8,L180(18) 
+              TB8                     ASL   R13,R13,#2 
+              FB8                     MOV   R10,#2 
+              FB8                     CLR   R8 
+              FB8                     MOV   R9,#_p+20480 
+              FB8                     CLR   R6 
+              FB8                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B8,R58,#1 
+              FB2                     ST    _class+36,R10 
+              FB2                     MOV   R10,#9 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#1 
+              FB2                     ST    _piecemax+36,R10 
+              FB2                     MOV   R10,#1 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L192        
+        L193        
+        L194                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L192(13) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#1 
+                                      MOV   B2,B3 
+                                      BT    B3,L192(15) 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     ADD!  R61,R60,#1 
+              FB3                     MOV!  R8,R60 
+              TB2                     LES!  B3,R6,#0 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R60,R61 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#0 
+                                      MOV   B2,B9 
+                                      BT    B9,L192(18) 
+              TB9                     ASL   R13,R13,#2 
+              FB9                     MOV   R10,#2 
+              FB9                     CLR   R8 
+              FB9                     MOV   R9,#_p+22528 
+              FB9                     CLR   R6 
+              FB9                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B9,R60,#1 
+              FB2                     ST    _class+40,R10 
+              FB2                     MOV   R10,#65 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#1 
+              FB2                     ST    _piecemax+40,R10 
+              FB2                     MOV   R10,#1 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L204        
+        L205        
+        L206                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R7,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L204(13) 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R7,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#1 
+                                      MOV   B2,B3 
+                                      BT    B3,L204(15) 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     ADD!  R7,R62,#1 
+              FB3                     MOV!  R8,R62 
+              TB2                     LES!  B3,R6,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     MOV!  R62,R7 
+              FB2                     ADD!  R7,R6,#8 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES!  B1,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      MOV   B2,B10 
+                                      BT    B10,L204(18) 
+              TB10                     ASL   R13,R13,#2 
+              FB10                     MOV   R10,#2 
+              FB10                     CLR   R8 
+              FB10                     MOV   R9,#_p+24576 
+              FB10                     CLR   R6 
+              FB10                     MOV   R5,#1 
+              TB2                     ADD   R13,R13,R9 
+              TB2                     LES!  B10,R62,#0 
+              FB2                     ST    _class+44,R10 
+              FB2                     MOV   R10,#72 
+              FB2                     ADD   R7,R6,#8 
+              FB2                     ASL   R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     LES   B1,R5,#1 
+              FB2                     ST    _piecemax+44,R10 
+              FB2                     MOV   R10,#1 
+              FB2                     ADD   R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      ASL   R13,R13,#2 
+                                      ADD   R13,R13,R9 
+  L216        
+        L217        
+        L218                                ST    (R0,R13),R10 
+                                      ASL!  R13,R7,#3 
+                                      MOV!  R10,#1 
+                                      ADD!  R12,R7,#8 
+                                      ADD!  R5,R5,#1 
+                                      MOV   B2,B1 
+                                      BT    B1,L216(14) 
+              TB1                     MOV!  R7,R12 
+              TB1                     ADD   R13,R13,R8 
+              FB1                     CLR!  R5 
+              FB1                     ASL!  R13,R6,#3 
+              FB1                     MOV!  R10,#1 
+              FB1                     ADD!  R14,R6,#8 
+              FB1                     ADD!  R6,R6,#1 
+              TB2                     ASL   R13,R13,#2 
+              TB2                     LES   B1,R5,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ASL!  R13,R13,#2 
+              FB2                     LES!  B1,R5,#1 
+                                      MOV   B2,B3 
+                                      BT    B3,L216(15) 
+              TB3                     MOV!  R7,R14 
+              TB3                     ADD   R13,R13,R9 
+              FB3                     MOV!  R8,R11 
+              FB3                     CLR!  R5 
+              FB3                     CLR!  R6 
+              FB3                     MOV!  R10,#1 
+              FB3                     MOV!  R11,R15 
+              TB2                     LES!  B3,R6,#1 
+              FB2                     ADD!  R5,R5,#1 
+              FB2                     ASL!  R13,R6,#3 
+              FB2                     ADD!  R6,R6,#1 
+              FB2                     ADD!  R15,R11,#1 
+              FB2                     LES!  B1,R5,#1 
+              FB2                     ADD!  R13,R13,R8 
+              FB2                     LES!  B3,R6,#1 
+                                      MOV   B2,B5 
+                                      BT    B5,L216(13) 
+              TB5                     MOV!  R7,R16 
+              TB5                     ASL   R13,R13,#2 
+              TB5                     MOV!  R16,#8 
+              FB5                     ST    _kount,R0 
+              FB5                     MOV   R10,#3 
+              FB5                     CLR   R5 
+              FB5                     MOV   R6,#73 
+              TB2                     LES!  B5,R11,#1 
+              TB2                     ADD   R13,R13,R9 
+              FB2                     ST    _class+48,R10 
+              FB2                     MOV   R10,#73 
+              FB2                     ST    _piecemax+48,R10 
+              FB2                     MOV   R10,#13 
+                                      BSR   RA,_Fit (6) 
+                                      ST    _piececount,R10 
+                                      MOV   R10,#3 
+                                      ST    _piececount+4,R10 
+                                      MOV   R10,#1 
+                                      ST    _piececount+12,R10 
+                                      ST    _piececount+8,R10 
+                                      EQ    B1,R5,#0 
+                                      MOV!  R5,#Lc0 
+                                      MOV!  R6,#73 
+                                      BT    B1,L220(20) 
+              TB1                     BRA   _printf(11) 
+              TB1                     MOV   RA,#return2 
+              FB1                     BSR   RA,~Place2 (17) 
+              FB1                     CLR   R5 
+              FB1                     SUB   SP,SP,#128 
+              FB1                     MOV   R8,R5 
+              FB1                     CLR   R5 
+              FB1                     MOV   R11,#_piecemax 
+              FB1                     GTS!  B4,R6,#511 
+              FB1                     ASL!  R43,R6,#2 
+              FB1                     ADD!  R40,R6,#1 
+              FB1                     MOV!  R10,#_puzzl 
+              FB1                     ASL   R13,R8,#2 
+              FB1                     ASL!  R44,R8,#2 
+              FB1                     ADD!  R45,R43,#4504 
+              FB1                     LES!  B5,R40,#511 
+              FB1                     ADD!  R41,R40,#1 
+              FB1                     ASL!  R46,R8,#11 
+              FB1                     ADD!  R12,R5,#1 
+              FB1                     ADD!  R14,R6,R5 
+                                      ST    _n,R5 
+  L220        
+        L219        
+        return2                             BSR   RA,~Trial2 (17) 
+                                      LD    R5,_n 
+                                      SUB   SP,SP,#144 
+                                      MOV   R7,#_piececount 
+                                      MOV!  R6,R5 
+                                      ST    140(SP),R24 
+                                      ST    136(SP),R23 
+                                      ST    132(SP),R22 
+                                      ST    128(SP),R21 
+                                      ST    0(SP),RA 
+                                      ST    8(SP),R17 
+                                      ST    12(SP),R18 
+                                      ST    16(SP),R19 
+                                      ST    20(SP),R20 
+                                      MOV   R20,R5 
+                                      LD    R13,_kount 
+                                      CLR   R18 
+                                      MOV   R19,#_class 
+                                      NE    B1,R5,#0 
+                                      MOV!  R5,#Lc2 
+                                      BT    B1,Sx25(4) 
+              TB1                     BRA   _printf(3) 
+              TB1                     MOV   RA,#return3 
+              FB1                     BSR   RA,_printf (1) 
+              FB1                     MOV   R5,#Lc1 
+                                      BSR   RA,_printf (1) 
+                                      MOV   R5,#Lc2 
+  Sx25        
+        Sx24        
+        return3                             BSR   RA,_printf (2) 
+                                      MOV   R5,#Lc3 
+                                      LD    R6,_kount 
+                                      BSR   RA,_printf (5) 
+                                      MOV   R5,#Lc4 
+                                      LD    R6,_puzzl+4 
+                                      LD    R7,_puzzl+800 
+                                      LD    R8,_puzzl+1200 
+                                      LD    R9,_puzzl+2000 
+                                      BSR   RA,_printf (1) 
+                                      MOV   R5,#Lc5 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+
+  _main                               SUB   SP,SP,#128 
+                                      ST    0(SP),RA 
+  ~main1                              BSR   RA,L42 (38) 
+                                      SUB   SP,SP,#128 
+                                      MOV   R5,#511 
+                                      MOV   R10,#1 
+                                      MOV   R11,#6544 
+                                      MOV   R13,#_puzzl+2044 
+                                      MOV!  R8,#1 
+                                      MOV!  R9,#_puzzl 
+                                      MOV!  R7,#9 
+                                      MOV!  R6,#2 
+                                      MOV!  R40,#1 
+                                      MOV!  R42,#1 
+                                      MOV!  R44,#1 
+                                      MOV!  R46,#1 
+                                      MOV!  R48,#1 
+                                      MOV!  R50,#1 
+                                      MOV!  R52,#1 
+                                      MOV!  R54,#1 
+                                      MOV!  R56,#1 
+                                      MOV!  R58,#1 
+                                      MOV!  R60,#1 
+                                      MOV!  R62,#1 
+                                      ST    0(SP),RA 
+                                      ADD   R5,R5,#-1 
+                                      ASL!  R41,R7,#3 
+                                      ADD!  R15,R8,#1 
+                                      LES!  B5,R6,#5 
+                                      ADD!  R7,R7,#8 
+                                      LES!  B6,R40,#3 
+                                      LES!  B7,R42,#1 
+                                      LES!  B8,R44,#0 
+                                      LES!  B9,R46,#1 
+                                      ST    (R0,R13),R10 
+                                      MOV   R13,R11 
+                                      MOV!  R10,#1 
+                                      LES!  B11,R48,#3 
+                                      GES   B1,R5,#0 
+                                      ADD!  R43,R41,R8 
+                                      LES!  B10,R15,#5 
+                                      LD    RA,0(SP) 
+                                      ADD   SP,SP,#128 
+                                      MOV   PC,RA(0) 
+ Lc0: 	.ascii "Error1 in Puzzle\12\0"
+ Lc1: 	.ascii "Error2 in Puzzle\12\0"
+ Lc2: 	.ascii "\12\12end of run for puzzle.c with 511 element array\0"
+ Lc3: 	.ascii "\12kount = %d  (should be 2005)\0"
+ Lc4: 	.ascii "\12sample values of puzzl array     : [1]=%d [200]=%d [300]=%d [500]=%d\0"
+ Lc5: 	.ascii "\12corect values for array elements :     1       1       1       1 \12\12\0"
+	.comm _piececount,16,
+	.comm _class,52,
+	.comm _piecemax,52,
+	.comm _puzzl,2048,
+	.comm _p,26624,
+	.comm _n,4,
+	.comm _kount,4,
+
