@@ -45,11 +45,11 @@ namespace Proiect_SOAC
             var lines = parseFile();
             if (immediateMerging.Checked)
             {
-                // do immediate merging
+                lines = doImmediatemerging(lines);
             }
             if (movReabsorption.Checked)
             {
-                //do move reabsorption
+                lines = doMovReabsorption(lines);
             }
             if (antiAlias.Checked)
             {
@@ -57,6 +57,8 @@ namespace Proiect_SOAC
             }
             render(lines);
         }
+
+
 
         private IList<Line> doAntiAlias(IList<Line> lines)
         {
@@ -100,14 +102,14 @@ namespace Proiect_SOAC
             return lines;
         }
 
-        private AntiAliasMemoryMatch getMemoryMatch(Line ld, Line st) 
+        private AntiAliasMemoryMatch getMemoryMatch(Line ld, Line st)
         {
             var ldOperands = ld.getOperands();
             var stOperands = st.getOperands();
             if (((stOperands[0].reg1.Equals(ldOperands[1].reg1) && stOperands[0].reg2.Equals(ldOperands[1].reg2)) || (stOperands[0].reg1.Equals(ldOperands[1].reg2) && stOperands[0].reg2.Equals(ldOperands[1].reg1))) && ldOperands[1].preOffset.Equals(stOperands[0].preOffset) && ldOperands[1].postOffset.Equals(stOperands[0].postOffset))
             {
                 return AntiAliasMemoryMatch.Identic;
-            } 
+            }
             else if (InstructionUtils.isRegister(ldOperands[1].reg1) || InstructionUtils.isRegister(ldOperands[1].reg2) || InstructionUtils.isRegister(stOperands[0].reg1) || InstructionUtils.isRegister(stOperands[0].reg2))
             {
                 return AntiAliasMemoryMatch.Esueaza;
@@ -219,7 +221,8 @@ namespace Proiect_SOAC
                         reg2 = components[1].Replace(")", ""),
                         preOffset = 0
                     });
-                } else
+                }
+                else
                 {
                     operands.Add(new Operand
                     {
@@ -240,7 +243,7 @@ namespace Proiect_SOAC
                     {
                         reg1 = secondOpComp[1],
                         reg2 = components[2].Replace(")", ""),
-                        preOffset=0
+                        preOffset = 0
                     });
                 }
                 else
@@ -296,7 +299,8 @@ namespace Proiect_SOAC
                             postOffset = int.Parse(opComponents[1])
                         };
                     }
-                } else
+                }
+                else
                 {
                     return new Operand
                     {
@@ -312,6 +316,177 @@ namespace Proiect_SOAC
                     reg1 = opernad
                 };
             }
+        }
+        private IList<Line> doImmediatemerging(IList<Line> lines)
+        {
+            for (int i = 0; i < lines.Count - 1; i++)
+            {
+                var newOperands1 = new List<Operand>
+                        {
+                            new Operand
+                            {
+                                reg1 = lines[i].getOperands()[0].reg1,
+                            },
+                            new Operand
+                            {
+                                reg1 = lines[i].getOperands()[1].reg1,
+                            },
+                            new Operand
+                            {
+                                immediateValue=lines[i].getOperands()[2].reg1
+                            }
+                        };
+                var newOperands2 = new List<Operand>
+                        {
+                            new Operand
+                            {
+                                reg1 = lines[i + 1].getOperands()[0].reg1,
+                            },
+                            new Operand
+                            {
+                                reg1 = lines[i+1].getOperands()[1].reg1,
+                            },
+                            new Operand
+                            {
+                                immediateValue=lines[i+1].getOperands()[2].reg1
+                            }
+                        };
+
+                if (newOperands1[0].reg1.Equals(newOperands2[1].reg1))
+                {
+
+                    if (lines[i].getInstruction().Equals(InstructionSet.SUB.ToString()) || lines[i].getInstruction().Equals(InstructionSet.SUBU.ToString())
+                        || lines[i].getInstruction().Equals(InstructionSet.SUB_D.ToString()) || lines[i].getInstruction().Equals(InstructionSet.SUB_S.ToString()))
+                    {
+                        if (newOperands1[2].immediateValue.StartsWith('#'))
+                        {
+                            int operand1Value = int.Parse(newOperands1[2].immediateValue.ToString().Substring(1));
+                            int operand2Value = int.Parse(newOperands2[2].immediateValue.ToString().Substring(1));
+                            int finalOperandInt = operand2Value - operand1Value;
+                            string finalOperandString = '#' + finalOperandInt.ToString();
+
+                            // new line should take in consideration that it was a sub or something which affects the sign 
+                            var newOperands = new List<Operand>
+                        {
+                            new Operand
+                            {
+                                reg1 = lines[i + 1].getOperands()[0].reg1,
+                            },
+                            new Operand
+                            {
+                                reg1 = lines[i].getOperands()[1].reg1,
+                            },
+                            new Operand
+                            {
+                                reg1 = finalOperandString
+                            }
+                        };
+                            lines[i + 1] = new Instruction
+                            {
+                                instruction = lines[i + 1].getInstruction().ToString(),
+                                operands = newOperands
+                            };
+                        }
+                    }
+                    else
+                    {
+                        if (newOperands1[2].immediateValue.StartsWith('#'))
+                        {
+                            int operand1Value = int.Parse(newOperands1[2].immediateValue.ToString().Substring(1));
+                            int operand2Value = int.Parse(newOperands2[2].immediateValue.ToString().Substring(1));
+                            int finalOperandInt = operand2Value + operand1Value;
+                            string finalOperandString = '#' + finalOperandInt.ToString();
+
+                            // new line should take in consideration that it was a sub or something which affects the sign 
+                            var newOperands = new List<Operand>
+                        {
+                            new Operand
+                            {
+                                reg1 = lines[i + 1].getOperands()[0].reg1,
+                            },
+                            new Operand
+                            {
+                                reg1 = lines[i].getOperands()[1].reg1,
+                            },
+                            new Operand
+                            {
+                                reg1 = finalOperandString
+                            }
+                        };
+                            lines[i + 1] = new Instruction
+                            {
+                                instruction = lines[i + 1].getInstruction().ToString(),
+                                operands = newOperands
+                            };
+                        }
+
+                    }
+                }
+            }
+            return lines;
+        }
+        private IList<Line> doMovReabsorption(IList<Line> lines)
+        {
+            for (int i = 0; i < lines.Count - 1; i++)
+            {
+                var newOperands1 = new List<Operand>
+                        {
+                            new Operand
+                            {
+                                reg1 = lines[i].getOperands()[0].reg1,
+                            },
+                            new Operand
+                            {
+                                reg1 = lines[i].getOperands()[1].reg1,
+                            },
+                            new Operand
+                            {
+                                immediateValue=lines[i].getOperands()[2].reg1
+                            }
+                        };
+                var newOperands2 = new List<Operand>
+                        {
+                            new Operand
+                            {
+                                reg1 = lines[i + 1].getOperands()[0].reg1,
+                            },
+                            new Operand
+                            {
+                                reg1 = lines[i+1].getOperands()[1].reg1,
+                            },
+
+                        };
+
+                if (!(lines[i].getInstruction().Equals(InstructionSet.ST.ToString()) || lines[i].getInstruction().Equals(InstructionSet.LD.ToString())))
+                {
+                    if (lines[i + 1].getInstruction().Equals(InstructionSet.MOV.ToString()))
+                    {
+                        var newOperands = new List<Operand>
+                        {
+                            new Operand
+                            {
+                                reg1 = lines[i + 1].getOperands()[0].reg1,
+                            },
+                            new Operand
+                            {
+                                reg1 = lines[i].getOperands()[1].reg1,
+                            },
+                            new Operand
+                            {
+                               reg1 = lines[i].getOperands()[2].reg1,
+                            }
+                        };
+
+                        lines[i + 1] = new Instruction
+                        {
+                            instruction = lines[i].getInstruction().ToString(),
+                            operands = newOperands
+                        };
+                    }
+                }
+            }
+            return lines;
+
         }
     }
 }
