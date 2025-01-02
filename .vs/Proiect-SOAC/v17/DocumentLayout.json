@@ -1,0 +1,56 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\AndreiVanP\\Documents\\VisualStudioProjects\\Proiect-SOAC\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{290EA303-EA56-4815-A6E7-9DB69E7AD66F}|Proiect-SOAC\\Proiect-SOAC.csproj|c:\\users\\andreivanp\\documents\\visualstudioprojects\\proiect-soac\\proiect-soac\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{290EA303-EA56-4815-A6E7-9DB69E7AD66F}|Proiect-SOAC\\Proiect-SOAC.csproj|solutionrelative:proiect-soac\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{290EA303-EA56-4815-A6E7-9DB69E7AD66F}|Proiect-SOAC\\Proiect-SOAC.csproj|C:\\Users\\AndreiVanP\\Documents\\VisualStudioProjects\\Proiect-SOAC\\proiect-soac\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{290EA303-EA56-4815-A6E7-9DB69E7AD66F}|Proiect-SOAC\\Proiect-SOAC.csproj|solutionrelative:proiect-soac\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\AndreiVanP\\Documents\\VisualStudioProjects\\Proiect-SOAC\\Proiect-SOAC\\Form1.cs",
+              "RelativeDocumentMoniker": "Proiect-SOAC\\Form1.cs",
+              "ToolTip": "C:\\Users\\AndreiVanP\\Documents\\VisualStudioProjects\\Proiect-SOAC\\Proiect-SOAC\\Form1.cs",
+              "RelativeToolTip": "Proiect-SOAC\\Form1.cs",
+              "ViewState": "AQIAAG4BAAAAAAAAAAAYwOwBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-02T10:12:14.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\AndreiVanP\\Documents\\VisualStudioProjects\\Proiect-SOAC\\Proiect-SOAC\\Form1.cs",
+              "RelativeDocumentMoniker": "Proiect-SOAC\\Form1.cs",
+              "ToolTip": "C:\\Users\\AndreiVanP\\Documents\\VisualStudioProjects\\Proiect-SOAC\\Proiect-SOAC\\Form1.cs [Design]",
+              "RelativeToolTip": "Proiect-SOAC\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T14:19:23.853Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
