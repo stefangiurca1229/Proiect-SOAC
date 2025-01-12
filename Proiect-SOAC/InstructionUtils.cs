@@ -11,7 +11,8 @@
 
         public static bool isRegister(string element)
         {
-            if (Enum.TryParse(typeof(RegisterSet), element.ToUpper(), out _)) return true;
+            if (element.Equals(string.Empty)) return false;
+            if (Enum.TryParse(typeof(RegisterSet), element.ToUpper()[0].ToString(), out _)) return true;
             if (element.ToUpper().StartsWith(RegisterSet.R.ToString()) || element.ToUpper().StartsWith(RegisterSet.B.ToString()))
             {
                 var registerNumber = element.Remove(1);
