@@ -321,105 +321,121 @@ namespace Proiect_SOAC
         {
             for (int i = 0; i < lines.Count - 1; i++)
             {
-                var newOperands1 = new List<Operand>
-                        {
-                            new Operand
-                            {
-                                reg1 = lines[i].getOperands()[0].reg1,
-                            },
-                            new Operand
-                            {
-                                reg1 = lines[i].getOperands()[1].reg1,
-                            },
-                            new Operand
-                            {
-                                immediateValue=lines[i].getOperands()[2].reg1
-                            }
-                        };
-                var newOperands2 = new List<Operand>
-                        {
-                            new Operand
-                            {
-                                reg1 = lines[i + 1].getOperands()[0].reg1,
-                            },
-                            new Operand
-                            {
-                                reg1 = lines[i+1].getOperands()[1].reg1,
-                            },
-                            new Operand
-                            {
-                                immediateValue=lines[i+1].getOperands()[2].reg1
-                            }
-                        };
-
-                if (newOperands1[0].reg1.Equals(newOperands2[1].reg1))
+                bool flagImmValue1 = false;
+                bool flagImmValue2 = false;
+                Operand op1 = new Operand
                 {
-
-                    if (lines[i].getInstruction().Equals(InstructionSet.SUB.ToString()) || lines[i].getInstruction().Equals(InstructionSet.SUBU.ToString())
-                        || lines[i].getInstruction().Equals(InstructionSet.SUB_D.ToString()) || lines[i].getInstruction().Equals(InstructionSet.SUB_S.ToString()))
+                    reg1 = lines[i].getOperands()[0].reg1,
+                };
+                Operand op2 = new Operand
+                {
+                    reg1 = lines[i].getOperands()[1].reg1,
+                };
+                var newOperands1 = new List<Operand> { op1, op2 };
+                try
+                {
+                    Operand op3 = new Operand
                     {
-                        if (newOperands1[2].immediateValue.StartsWith('#'))
-                        {
-                            int operand1Value = int.Parse(newOperands1[2].immediateValue.ToString().Substring(1));
-                            int operand2Value = int.Parse(newOperands2[2].immediateValue.ToString().Substring(1));
-                            int finalOperandInt = operand2Value - operand1Value;
-                            string finalOperandString = '#' + finalOperandInt.ToString();
+                        immediateValue = lines[i].getOperands()[2].reg1
+                    };
+                    newOperands1 = new List<Operand> { op1, op2, op3 };
+                    flagImmValue1 = true;
+                }
+                catch (Exception e) { }
 
-                            // new line should take in consideration that it was a sub or something which affects the sign 
-                            var newOperands = new List<Operand>
-                        {
-                            new Operand
-                            {
-                                reg1 = lines[i + 1].getOperands()[0].reg1,
-                            },
-                            new Operand
-                            {
-                                reg1 = lines[i].getOperands()[1].reg1,
-                            },
-                            new Operand
-                            {
-                                reg1 = finalOperandString
-                            }
-                        };
-                            lines[i + 1] = new Instruction
-                            {
-                                instruction = lines[i + 1].getInstruction().ToString(),
-                                operands = newOperands
-                            };
-                        }
-                    }
-                    else
+
+                Operand op21 = new Operand
+                {
+                    reg1 = lines[i + 1].getOperands()[0].reg1,
+                };
+                Operand op22 = new Operand
+                {
+                    reg1 = lines[i + 1].getOperands()[1].reg1,
+                };
+                var newOperands2 = new List<Operand> { op21, op22 };
+                try
+                {
+                    Operand op23 = new Operand
                     {
-                        if (newOperands1[2].immediateValue.StartsWith('#'))
-                        {
-                            int operand1Value = int.Parse(newOperands1[2].immediateValue.ToString().Substring(1));
-                            int operand2Value = int.Parse(newOperands2[2].immediateValue.ToString().Substring(1));
-                            int finalOperandInt = operand2Value + operand1Value;
-                            string finalOperandString = '#' + finalOperandInt.ToString();
+                        immediateValue = lines[i + 1].getOperands()[2].reg1
+                    };
+                    newOperands2 = new List<Operand> { op21, op22, op23 };
+                    flagImmValue2 = true;
+                }
+                catch (Exception e) { }
 
-                            // new line should take in consideration that it was a sub or something which affects the sign 
-                            var newOperands = new List<Operand>
+                if (flagImmValue1 && flagImmValue2)
+                {
+                    if (newOperands1[0].reg1.Equals(newOperands2[1].reg1))
+                    {
+
+                        if (lines[i].getInstruction().Equals(InstructionSet.SUB.ToString()) || lines[i].getInstruction().Equals(InstructionSet.SUBU.ToString())
+                            || lines[i].getInstruction().Equals(InstructionSet.SUB_D.ToString()) || lines[i].getInstruction().Equals(InstructionSet.SUB_S.ToString()))
                         {
-                            new Operand
+                            if (newOperands1[2].immediateValue.StartsWith('#'))
                             {
-                                reg1 = lines[i + 1].getOperands()[0].reg1,
-                            },
-                            new Operand
+                                int operand1Value = int.Parse(newOperands1[2].immediateValue.ToString().Substring(1));
+                                int operand2Value = int.Parse(newOperands2[2].immediateValue.ToString().Substring(1));
+                                int finalOperandInt = operand2Value - operand1Value;
+                                string finalOperandString = '#' + finalOperandInt.ToString();
+
+                                // new line should take in consideration that it was a sub or something which affects the sign 
+                                var newOperands = new List<Operand>
                             {
-                                reg1 = lines[i].getOperands()[1].reg1,
-                            },
-                            new Operand
-                            {
-                                reg1 = finalOperandString
-                            }
-                        };
-                            lines[i + 1] = new Instruction
-                            {
-                                instruction = lines[i + 1].getInstruction().ToString(),
-                                operands = newOperands
+                                new Operand
+                                {
+                                    reg1 = lines[i + 1].getOperands()[0].reg1,
+                                },
+                                new Operand
+                                {
+                                    reg1 = lines[i].getOperands()[1].reg1,
+                                },
+                                new Operand
+                                {
+                                    reg1 = finalOperandString
+                                }
                             };
+                                lines[i + 1] = new Instruction
+                                {
+                                    instruction = lines[i + 1].getInstruction().ToString(),
+                                    operands = newOperands
+                                };
+                            }
                         }
+                        else
+                        {
 
+                            if (newOperands1[2].immediateValue.StartsWith('#'))
+                            {
+                                int operand1Value = int.Parse(newOperands1[2].immediateValue.ToString().Substring(1));
+                                int operand2Value = int.Parse(newOperands2[2].immediateValue.ToString().Substring(1));
+                                int finalOperandInt = operand2Value + operand1Value;
+                                string finalOperandString = '#' + finalOperandInt.ToString();
+
+                                // new line should take in consideration that it was a sub or something which affects the sign 
+                                var newOperands = new List<Operand>
+                                {
+                                new Operand
+                                {
+                                    reg1 = lines[i + 1].getOperands()[0].reg1,
+                                },
+                                new Operand
+                                {
+                                    reg1 = lines[i].getOperands()[1].reg1,
+                                },
+                                new Operand
+                                {
+                                    reg1 = finalOperandString
+                                }
+                                };
+                                lines[i + 1] = new Instruction
+                                {
+                                    instruction = lines[i + 1].getInstruction().ToString(),
+                                    operands = newOperands
+                                };
+                            }
+
+                        }
                     }
                 }
             }
@@ -429,33 +445,49 @@ namespace Proiect_SOAC
         {
             for (int i = 0; i < lines.Count - 1; i++)
             {
-                var newOperands1 = new List<Operand>
-                        {
-                            new Operand
-                            {
-                                reg1 = lines[i].getOperands()[0].reg1,
-                            },
-                            new Operand
-                            {
-                                reg1 = lines[i].getOperands()[1].reg1,
-                            },
-                            new Operand
-                            {
-                                immediateValue=lines[i].getOperands()[2].reg1
-                            }
-                        };
-                var newOperands2 = new List<Operand>
-                        {
-                            new Operand
-                            {
-                                reg1 = lines[i + 1].getOperands()[0].reg1,
-                            },
-                            new Operand
-                            {
-                                reg1 = lines[i+1].getOperands()[1].reg1,
-                            },
+                bool flagImmValue1 = false;
+                bool flagImmValue2 = false;
+                Operand op1 = new Operand
+                {
+                    reg1 = lines[i].getOperands()[0].reg1,
+                };
+                Operand op2 = new Operand
+                {
+                    reg1 = lines[i].getOperands()[1].reg1,
+                };
+                var newOperands1 = new List<Operand> { op1, op2 };
+                try
+                {
+                    Operand op3 = new Operand
+                    {
+                        immediateValue = lines[i].getOperands()[2].reg1
+                    };
+                    newOperands1 = new List<Operand> { op1, op2, op3 };
+                    flagImmValue1 = true;
+                }
+                catch (Exception e) { }
 
-                        };
+
+                Operand op21 = new Operand
+                {
+                    reg1 = lines[i + 1].getOperands()[0].reg1,
+                };
+                Operand op22 = new Operand
+                {
+                    reg1 = lines[i + 1].getOperands()[1].reg1,
+                };
+                var newOperands2 = new List<Operand> { op21, op22 };
+                try
+                {
+                    Operand op23 = new Operand
+                    {
+                        immediateValue = lines[i + 1].getOperands()[2].reg1
+                    };
+                    newOperands2 = new List<Operand> { op21, op22, op23 };
+                    flagImmValue2 = true;
+                }
+                catch (Exception e) { }
+
 
                 if (!(lines[i].getInstruction().Equals(InstructionSet.ST.ToString()) || lines[i].getInstruction().Equals(InstructionSet.LD.ToString())))
                 {
