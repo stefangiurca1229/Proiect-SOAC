@@ -31,3 +31,4 @@ C:\Users\AndreiVanP\Documents\VisualStudioProjects\Proiect-SOAC\Proiect-SOAC\obj
 C:\Users\AndreiVanP\Documents\VisualStudioProjects\Proiect-SOAC\Proiect-SOAC\obj\Debug\net8.0-windows\Proiect-SOAC.pdb
 C:\Users\AndreiVanP\Documents\VisualStudioProjects\Proiect-SOAC\Proiect-SOAC\obj\Debug\net8.0-windows\Proiect-SOAC.genruntimeconfig.cache
 C:\Users\AndreiVanP\Documents\VisualStudioProjects\Proiect-SOAC\Proiect-SOAC\obj\Debug\net8.0-windows\ref\Proiect-SOAC.dll
+C:\Users\Stefan\source\repos\Proiect-SOAC\Proiect-SOAC\obj\Debug\net8.0-windows\Proiect-SOAC.sourcelink.json
